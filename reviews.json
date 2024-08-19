@@ -1,0 +1,124 @@
+{
+    "reviews": [
+      {
+        "professor": "Dr. Emily Thompson",
+        "subject": "Physics",
+        "stars": 4,
+        "review": "Engaging lectures and challenging assignments. Dr. Thompson makes complex concepts easier to understand."
+      },
+      {
+        "professor": "Prof. Michael Chen",
+        "subject": "Computer Science",
+        "stars": 5,
+        "review": "Brilliant instructor! Prof. Chen's passion for coding is contagious. Highly recommend his classes."
+      },
+      {
+        "professor": "Dr. Sarah Johnson",
+        "subject": "Biology",
+        "stars": 3,
+        "review": "Knowledgeable but sometimes hard to follow. Office hours were helpful."
+      },
+      {
+        "professor": "Prof. David Williams",
+        "subject": "Literature",
+        "stars": 4,
+        "review": "Insightful analysis of classic works. Prof. Williams encourages critical thinking."
+      },
+      {
+        "professor": "Dr. Rachel Lee",
+        "subject": "Chemistry",
+        "stars": 5,
+        "review": "Outstanding teacher! Dr. Lee's lab experiments are both educational and fun."
+      },
+      {
+        "professor": "Prof. Robert Taylor",
+        "subject": "History",
+        "stars": 2,
+        "review": "Dry lectures and excessive reading assignments. Could improve presentation style."
+      },
+      {
+        "professor": "Dr. Amanda Martinez",
+        "subject": "Psychology",
+        "stars": 4,
+        "review": "Fascinating course content. Dr. Martinez relates theories to real-world scenarios effectively."
+      },
+      {
+        "professor": "Prof. James Wilson",
+        "subject": "Mathematics",
+        "stars": 3,
+        "review": "Clear explanations but moves through material quickly. Extra practice problems would be helpful."
+      },
+      {
+        "professor": "Dr. Lisa Brown",
+        "subject": "Sociology",
+        "stars": 5,
+        "review": "Thought-provoking discussions and well-structured course. Dr. Brown is an inspiring educator."
+      },
+      {
+        "professor": "Prof. Thomas Anderson",
+        "subject": "Economics",
+        "stars": 4,
+        "review": "Excellent at explaining complex economic concepts. Prof. Anderson uses relevant, current examples."
+      },
+      {
+        "professor": "Dr. Jessica Patel",
+        "subject": "Environmental Science",
+        "stars": 5,
+        "review": "Passionate about the subject. Dr. Patel organizes great field trips and hands-on projects."
+      },
+      {
+        "professor": "Prof. Daniel Kim",
+        "subject": "Art History",
+        "stars": 3,
+        "review": "Knowledgeable but sometimes disorganized. Interesting course content overall."
+      },
+      {
+        "professor": "Dr. Olivia Garcia",
+        "subject": "Neuroscience",
+        "stars": 4,
+        "review": "Challenging but rewarding course. Dr. Garcia is always willing to help students understand difficult concepts."
+      },
+      {
+        "professor": "Prof. Christopher Lee",
+        "subject": "Political Science",
+        "stars": 2,
+        "review": "Seems biased in presentations. Could improve by offering more balanced viewpoints."
+      },
+      {
+        "professor": "Dr. Sophia Nguyen",
+        "subject": "Linguistics",
+        "stars": 5,
+        "review": "Engaging lecturer with innovative teaching methods. Dr. Nguyen makes language study exciting."
+      },
+      {
+        "professor": "Prof. William Harris",
+        "subject": "Philosophy",
+        "stars": 4,
+        "review": "Stimulating debates and well-structured arguments. Prof. Harris challenges students to think critically."
+      },
+      {
+        "professor": "Dr. Elizabeth Clark",
+        "subject": "Anthropology",
+        "stars": 3,
+        "review": "Interesting course material but unclear grading criteria. Dr. Clark could improve communication."
+      },
+      {
+        "professor": "Prof. Richard White",
+        "subject": "Business Administration",
+        "stars": 5,
+        "review": "Excellent real-world insights. Prof. White's industry experience greatly enhances the course."
+      },
+      {
+        "professor": "Dr. Jennifer Moore",
+        "subject": "Geology",
+        "stars": 4,
+        "review": "Fascinating field trips and lab work. Dr. Moore's enthusiasm for rocks is contagious."
+      },
+      {
+        "professor": "Prof. Kevin Zhang",
+        "subject": "Music Theory",
+        "stars": 3,
+        "review": "Knowledgeable instructor but fast-paced classes. More practice exercises would be beneficial."
+      }
+    ]
+  }
