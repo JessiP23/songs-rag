@@ -35,6 +35,35 @@ async function getChannelDetails(channelId) {
     }
 }
 
+async function getChannelVideos(channelId) {
+    try {
+        const response = await youtube.search.list({
+            channelId: channelId,
+            part: 'snippet',
+            order: 'date',
+            maxResults: 5,
+            type: 'video',
+        });
+        return response.data;
+    } catch (error) {
+        console.error('An error occurred:', error);
+        return null;
+    }
+}
+
+async function getVideoDetails(videoId) {
+    try {
+        const response = await youtube.videos.list({
+            part: 'snippet,contentDetails,statistics',
+            id: videoId,
+        });
+        return response.data;
+    } catch (error) {
+        console.error('An error occurred:', error);
+        return null;
+    }
+}
+
 (async () => {
     const searchQuery = 'Infinite Stream'; // Replace with the artist name
     const searchResults = await searchChannelsByKeyword(searchQuery);
@@ -53,6 +82,19 @@ async function getChannelDetails(channelId) {
                 console.log(`Published At: ${channel.snippet.publishedAt}`);
                 console.log(`Thumbnail: ${channel.snippet.thumbnails.default.url}`);
                 console.log('--------------------------');
+
+                // Get and display videos (songs) from the channel
+                const videos = await getChannelVideos(channelId);
+                if (videos && videos.items.length > 0) {
+                    console.log('Latest Songs:');
+                    for (const video of videos.items) {
+                        console.log(`Title: ${video.snippet.title}`);
+                        console.log(`Video URL: https://www.youtube.com/watch?v=${video.id.videoId}`);
+                        console.log('--------------------------');
+                    }
+                } else {
+                    console.log('No videos found for this channel.');
+                }
             }
         }
     } else {
