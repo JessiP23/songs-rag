@@ -1,6 +1,10 @@
  const { google } = require('googleapis');
 
+//  must have a internet connection
+
 const apiKey = 'AIzaSyAZwzHCOwjwMgZYcpaQMGhkFJ5ShNtQ3EU';
+
+// youtue api key gotten from google api console
  
 const youtube = google.youtube({
     version: 'v3',
@@ -15,8 +19,9 @@ async function searchVideosOnChannel(channelId, query = 'music') {
             channelId: channelId,
             q: query,
             type: 'video',
-            order: 'date', // Order by date to get the most recent videos
-            maxResults: 10, // Adjust as needed
+            // order videos by most recent
+            order: 'date', 
+            maxResults: 10,
         });
         return response.data.items;
     } catch (error) {

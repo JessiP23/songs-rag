@@ -20,7 +20,7 @@ export default function Home() {
 
     setMessage('')
 
-    const response = fetch('/api/chat', {
+    const response = fetch('/api/youtube', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
