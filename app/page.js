@@ -8,6 +8,7 @@ import MusicVideoIcon from '@mui/icons-material/MusicVideo'
 import StarHalfIcon from '@mui/icons-material/StarHalf'
 import SpatialAudioOffIcon from '@mui/icons-material/SpatialAudioOff';
 import StarRating from "@/components/StarRating";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -52,6 +53,9 @@ export default function Home() {
             <p className="text-lg text-gray-600">Interact with music lovers</p>
           </div>
         </div>
+      </div>
+      <div className="mt-[10%]">
+      <Footer />
       </div>
     </div>
   )
