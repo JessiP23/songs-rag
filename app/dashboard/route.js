@@ -1,37 +1,35 @@
 'use client'
 
 import React, {useState, useEffect} from "react";
+import axios from 'axios'
 
 const Dashboard = () => {
     const [songs, setSongs] = useState([]);
-    const [ratings, setRatings] = useState({});
 
-    const handleRating = (songId, rating) => {
-        fetch('/api/ratings', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ songId, rating }),
-        }).then(response => {
-            if (response.ok) {
-                setRatings(prevRatings => ({ ...prevRatings, [songId]: rating }));
+    useEffect(() => {
+        async function fetchSongs() {
+            try {
+                const response = await axios.get('/api/songs');
+                setSongs(response.data);
+            } catch (error) {
+                console.error('Error fetching songs:', error);
             }
-        });
-    };
+        }
+        fetchSongs();
+    }, [])
 
     return(
         <div>
-            <h1>Rate your songs</h1>
-            {songs.map(song => (
-                <div key={song.id}>
-                    <h2>{song.title}</h2>
-                    <p>Artist: {song.channel} </p>
-                    <p><a href={song.link} target="_blank" rel="noopener noreferrer">Watch on Youtube</a></p>
-                    <div>
-                        <button onClick={() => handleRating(song.id, 'like')}>Like</button>
-                        <button onClick={() => handleRating(song.id, 'dislike')}>Dislike</button>
-                    </div>
-                </div>
-            ))}
+            <h1>Top Songs</h1>
+            <ul>
+                {songs.map((song, index) => (
+                    <li key={index}>
+                        <a href={song.link} target="_blank" rel="noopener noreferrer">
+                            {song.title} by {song.channel}
+                        </a>
+                    </li>
+                ))}
+            </ul>
         </div>
     )
 }

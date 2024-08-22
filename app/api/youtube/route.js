@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
+import { db, collection, addDoc } from "@/firebaseConfig";
 
 const systemPrompt = `
 You are a "Rate My Song" agent, tasked with helping users find the best songs according to their queries. Your goal is to provide users with the top 3 songs that best match their criteria.
@@ -33,11 +34,9 @@ export async function POST(req) {
     const data = await req.json();
     const openai = new OpenAI();
 
-    // function to fetch data from Youtube API
     async function fetchYoutubeData(query) {
         const response = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=${query}&key=${process.env.YOUTUBE_API_KEY}`);
         const rawText = await response.text();
-        console.log(rawText);  // Debugging line
         if (rawText) {
             try {
                 const data = JSON.parse(rawText);
@@ -61,6 +60,12 @@ export async function POST(req) {
 
     const text = data[data.length - 1].content;
     const songs = await fetchYoutubeData(text);
+
+    // Store songs in Firebase
+    const songsCollection = collection(db, 'songs');
+    for (const song of songs) {
+        await addDoc(songsCollection, song);
+    }
 
     const songsResponse = {
         message: 'Here are the top songs based on your query:',
@@ -95,7 +100,7 @@ export async function POST(req) {
             } catch(err) {
                 controller.error(err);
             } finally {
-                controller.close()
+                controller.close();
             }
         }
     });
