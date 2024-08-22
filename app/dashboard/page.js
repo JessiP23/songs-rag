@@ -29,7 +29,7 @@ const CardComponent = () => {
       <div>
         <div className="flex flex-row w-full">
           <div className="flex-1 overflow-x-auto">
-            <h1 className="p-6 text-center">Song List</h1>
+            <h1 className="p-6 text-center mb-10 font-bold text-4xl">Song List</h1>
             <div
               className="flex flex-row flex-wrap overflow-x-auto"
               style={{
@@ -74,7 +74,7 @@ const CardComponent = () => {
             </div>
           </div>
           <div className="w-[30%] text-center font-bold">
-            <h1 className="p-6 text-xl">Number of songs:</h1>
+            <h1 className="p-6 text-xl mt-12">Number of songs:</h1>
             <div className="text-5xl">
             {songs.length}
             </div>
