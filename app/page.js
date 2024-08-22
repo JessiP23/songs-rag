@@ -1,12 +1,11 @@
 'use client'
-import Chatbot from "./chatbot/route";
-import Dashboard from "./dashboard/route";
+
+import Header from "@/components/Header";
 
 export default function Home() {
   return (
     <div>
-      <Dashboard />
-      <Chatbot />
+      <Header />
     </div>
   )
 }
