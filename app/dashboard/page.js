@@ -1,13 +1,14 @@
 'use client'
 
 import React, { useState, useEffect } from "react";
-import { collection, deleteDoc, getDocs, doc } from 'firebase/firestore';
+import { collection, deleteDoc, getDocs, doc, addDoc } from 'firebase/firestore';
 import Header from "@/components/Header";
 import { Card, CardHeader, CardBody, CardFooter, Divider, Link, Button } from "@nextui-org/react";
 import { db } from "@/firebaseConfig";
 
 const CardComponent = () => {
   const [songs, setSongs] = useState([]);
+  const [globalSongs, setGlobalSongs] = useState([]); // new state for global songs
 
   const fetchSongs = async () => {
     const querySnapshot = await getDocs(collection(db, "songs"));
@@ -15,7 +16,6 @@ const CardComponent = () => {
     setSongs(songsList);
   };
 
-  // Feature to add private songs to the platform. not added yet
   const addSong = async (newSong) => {
     try {
       await addDoc(collection(db, 'songs'), newSong);
@@ -25,8 +25,6 @@ const CardComponent = () => {
     }
   };
 
-  // id does not work as firebase deletion
-  // Changed id to firebaseId
   const deleteSong = async (firestoreId) => {
     try {
       const songDocRef = doc(db, 'songs', firestoreId);
@@ -34,6 +32,16 @@ const CardComponent = () => {
       fetchSongs(); // Refresh the list after deletion
     } catch (error) {
       console.error("Error deleting song:", error);
+    }
+  };
+
+  const addSongToGlobalPlatform = async (song) => {
+    try {
+      // Add song to global platform collection
+      await addDoc(collection(db, 'globalSongs'), song);
+      console.log(`Song added to global platform: ${song.title}`);
+    } catch (error) {
+      console.error("Error adding song to global platform:", error);
     }
   };
 
@@ -89,6 +97,8 @@ const CardComponent = () => {
                     </Link>
                     {/* calling the deletion function */}
                     <Button onClick={() => deleteSong(song.firestoreId)} className="cursor-pointer">Delete</Button>
+                    {/* new button to add song to global platform */}
+                    <Button onClick={() => addSongToGlobalPlatform(song)} className="cursor-pointer">Add to Global Platform</Button>
                   </CardFooter>
                 </Card>
               ))}
