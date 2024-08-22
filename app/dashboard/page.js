@@ -34,7 +34,7 @@ const CardComponent = () => {
               className="flex flex-row flex-wrap overflow-x-auto"
               style={{
                 width: '100%',
-                height: '20%', 
+                height: '50%', 
                 overflowX: 'auto', 
                 padding: '20px',
               }}
@@ -44,8 +44,8 @@ const CardComponent = () => {
                   key={song.id}
                   className="w-72 m-7 border border-gray-200 rounded-md shadow-md p-4"
                   style={{
-                    flex: '0 0 25%', // Set the width of each card to 25%
-                    marginRight: '20px', // Add some margin between cards
+                    flex: '0 0 25%',
+                    marginRight: '20px', 
                   }}
                 >
                   <CardHeader className="flex gap-3">
