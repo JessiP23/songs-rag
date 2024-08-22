@@ -24,7 +24,7 @@ export default function Header() {
           </Link>
         </NavbarItem>
         <NavbarItem isActive>
-          <Link href="/chatbot" aria-current="page">
+          <Link href="/rating" aria-current="page">
             Rate songs
           </Link>
         </NavbarItem>
