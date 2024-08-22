@@ -7,6 +7,7 @@ import Image from "next/image";
 import MusicVideoIcon from '@mui/icons-material/MusicVideo'
 import StarHalfIcon from '@mui/icons-material/StarHalf'
 import SpatialAudioOffIcon from '@mui/icons-material/SpatialAudioOff';
+import StarRating from "@/components/StarRating";
 
 export default function Home() {
   return (
@@ -28,6 +29,11 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      <div className="text-center pt-[20%]">
+        <StarRating />
+      </div>
+
       {/* feature section */}
       <div className="mt-[20%]">
         <h1 className="text-2xl text-center pb-12">Features</h1>  
