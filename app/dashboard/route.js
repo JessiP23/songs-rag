@@ -4,13 +4,6 @@ const Dashboard = () => {
     const [songs, setSongs] = useState([]);
     const [ratings, setRatings] = useState({});
 
-    useEffect(() => {
-        // Fetch songs
-        fetch('/api/songs')
-            .then(response => response.json())
-            .then(data => setSongs(data));
-    }, []);
-
     const handleRating = (songId, rating) => {
         fetch('/api/ratings', {
             method: 'POST',
