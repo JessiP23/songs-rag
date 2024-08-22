@@ -9,3 +9,5 @@ export default function GlobalPlatform() {
         </div>
     )
 }
+
+// global platform 
