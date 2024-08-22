@@ -11,24 +11,13 @@ export default function Home() {
       <div className="h-screen flex flex-col items-center p-4 w-full">
         {/* Title and description of app */}
         <div className="flex flex-row mb-4 w-full">
-          <div className="w-[40vw] flex flex-col justify-center p-4">
-          <h1 className="text-3xl font-bold mb-4">Rate My Song</h1>
-          <p className="text-lg text-gray-600 mb-4">Discover new music and rate your favorite songs!</p>
-          <p className="text-sm text-gray-600 mb-4">Join our community of music lovers</p>
-          <p className="text-sm text-gray-600 mb-4">Average rating: 4.5/5 stars</p>
-          <button className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded">Sign up for free</button>
-          <div className="flex flex-row justify-center mb-4">
-            <a href="#" className="mr-4">
-              <i className="fab fa-facebook-f text-lg text-gray-600" />
-            </a>
-            <a href="#" className="mr-4">
-              <i className="fab fa-twitter text-lg text-gray-600" />
-            </a>
-            <a href="#" className="mr-4">
-              <i className="fab fa-instagram text-lg text-gray-600" />
-            </a>
-          </div>
-          </div>
+        <div className="w-[40vw] flex flex-col justify-center p-8">
+          <h1 className="text-4xl font-bold mb-8">Rate My Song</h1>
+          <p className="text-lg text-gray-600 mb-6">Discover new music and rate your favorite songs!</p>
+          <p className="text-lg text-gray-600 mb-6">Join our community of music lovers</p>
+          <p className="text-lg text-gray-600 mb-6">Rate your songs</p>
+          <button className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-4 px-8 rounded shadow-md">Sign up for free</button>
+        </div>
           {/* spacing for images in initial screen */}
           <div className="w-[60vw] relative">
             <Image src={Image1} className="w-full h-screen object-cover rounded-lg shadow-md" />
