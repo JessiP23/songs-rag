@@ -28,6 +28,11 @@ export default function Header() {
             Rate songs
           </Link>
         </NavbarItem>
+        <NavbarItem isActive>
+          <Link href="/platform" aria-current="page">
+            Global Platform
+          </Link>
+        </NavbarItem>
       </NavbarContent>
       <div className="flex items-center gap-4">
         <NavbarItem className="hidden lg:flex">
