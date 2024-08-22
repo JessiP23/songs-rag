@@ -31,17 +31,23 @@ const CardComponent = () => {
           <div className="flex-1 overflow-x-auto">
             <h1 className="p-6 text-center">Song List</h1>
             <div
-              className="flex flex-row overflow-x-auto"
+              className="flex flex-row flex-wrap overflow-x-auto"
               style={{
                 width: '100%',
-                height: '100%', 
+                height: '20%', 
                 overflowX: 'auto', 
                 padding: '20px',
-                gap: '25px', 
               }}
             >
               {songs.map(song => (
-                <Card key={song.id} className="w-72 m-7">
+                <Card
+                  key={song.id}
+                  className="w-72 m-7 border border-gray-200 rounded-md shadow-md p-4"
+                  style={{
+                    flex: '0 0 25%', // Set the width of each card to 25%
+                    marginRight: '20px', // Add some margin between cards
+                  }}
+                >
                   <CardHeader className="flex gap-3">
                     <div className="flex flex-col">
                       <p className="text-2xl text-bold">{song.title}</p>
