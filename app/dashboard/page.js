@@ -73,8 +73,8 @@ const CardComponent = () => {
             </div>
           </div>
           <div className="w-[30%] text-center font-bold">
-            Number of songs: 
-            <div className="text-3xl">
+            <h1 className="p-6 text-xl">Number of songs:</h1>
+            <div className="text-5xl">
             {songs.length}
             </div>
           </div>
