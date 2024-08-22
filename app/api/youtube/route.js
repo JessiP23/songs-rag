@@ -33,6 +33,7 @@ export async function POST(req) {
     const data = await req.json();
     const openai = new OpenAI();
 
+    // function to fetch data from Youtube API
     async function fetchYoutubeData(query) {
         const response = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=${query}&key=${process.env.YOUTUBE_API_KEY}`);
         const rawText = await response.text();
