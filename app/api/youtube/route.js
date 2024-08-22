@@ -33,49 +33,43 @@ export async function POST(req) {
     const data = await req.json();
     const openai = new OpenAI();
 
-    // Youtube API data fetching function
     async function fetchYoutubeData(query) {
         const response = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=${query}&key=${process.env.YOUTUBE_API_KEY}`);
-        const data = await response.json();
-    
-        // Check if data.items is defined and is an array
-        if (Array.isArray(data.items)) {
-            return data.items.map(item => ({
-                id: item.id.videoId,
-                title: item.snippet.title,
-                description: item.snippet.description,
-                channel: item.snippet.channelTitle,
-                publishedAt: item.snippet.publishedAt,
-            }));
+        const rawText = await response.text();
+        console.log(rawText);  // Debugging line
+        if (rawText) {
+            try {
+                const data = JSON.parse(rawText);
+                if (Array.isArray(data.items)) {
+                    return data.items.map(item => ({
+                        id: item.id.videoId,
+                        title: item.snippet.title,
+                        link: `https://www.youtube.com/watch?v=${item.id.videoId}`,
+                        channel: item.snippet.channelTitle,
+                    }));
+                } else {
+                    throw new Error('Failed to fetch YouTube data or no items found');
+                }
+            } catch (error) {
+                throw new Error('Error parsing JSON response: ' + error.message);
+            }
         } else {
-            // Handle the case where items is undefined or not an array
-            throw new Error('Failed to fetch YouTube data or no items found');
+            throw new Error('No data received from YouTube API');
         }
     }
 
     const text = data[data.length - 1].content;
-
-    // fetch songs on user query
     const songs = await fetchYoutubeData(text);
 
-    // song response
-    let resultString = 'Here are the top songs based on your query:';
-
-    // iterate over each song
-    songs.forEach((song, index) => {
-        resultString += `\n
-        ${index + 1}. Title: ${song.title}
-        Artist: ${song.artist}
-        Views: ${song.views}
-        Likes: ${song.likes}
-        Link: ${song.link}
-        /n/n
-        `;
-    });
+    const songsResponse = {
+        message: 'Here are the top songs based on your query:',
+        songs
+    };
 
     const lastMessage = data[data.length - 1];
-    const lastMessageContent = lastMessage.content + resultString;
+    const lastMessageContent = lastMessage.content + JSON.stringify(songsResponse);
     const lastDataWithoutLastMessage = data.slice(0, data.length - 1);
+
     const completion = await openai.chat.completions.create({
         messages: [
             { role: 'system', content: systemPrompt },
@@ -107,3 +101,4 @@ export async function POST(req) {
 
     return new NextResponse(stream);
 }
+
