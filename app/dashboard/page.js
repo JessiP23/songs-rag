@@ -49,7 +49,7 @@ const Dashboard = () => {
                   showAnchorIcon
                   href={song.link}
                 >
-                  Listen on {song.platform}
+                  Listen Song
                 </Link>
               </CardFooter>
             </Card>
