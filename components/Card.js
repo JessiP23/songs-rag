@@ -1,30 +1,36 @@
-import { Card, Grid, Text, Button, Row } from "@nextui-org/react";
+import React from "react";
+import {Card, CardHeader, CardBody, CardFooter, Divider, Link, Image} from "@nextui-org/react";
 
-export default function Card() {
-    return (
-        <Grid.Container gap={2}>
-            <Grid sm={12} md={5}>
-                <Card css={{ mw: '330px' }}>
-                    <Card.Header>
-                        <Text b></Text>
-                    </Card.Header>
-                    <Card.Divider />
-                    <Card.Body css={{ py: '$10' }}>
-                        <Text>
-                            DEscription
-                        </Text>
-                    </Card.Body>
-                    <Card.Divider />
-                    <Card.Footer>
-                        <Row justify="flex-end">
-                            <Button size="sm" light>
-                                Cancel
-                            </Button>
-                            <Button size="sm">Agree</Button>
-                        </Row>
-                    </Card.Footer>
-                </Card>
-            </Grid>
-        </Grid.Container>
-    )
+export default function App() {
+  return (
+    <Card className="max-w-[400px]">
+      <CardHeader className="flex gap-3">
+        <Image
+          alt="nextui logo"
+          height={40}
+          radius="sm"
+          src="https://avatars.githubusercontent.com/u/86160567?s=200&v=4"
+          width={40}
+        />
+        <div className="flex flex-col">
+          <p className="text-md">NextUI</p>
+          <p className="text-small text-default-500">nextui.org</p>
+        </div>
+      </CardHeader>
+      <Divider/>
+      <CardBody>
+        <p>Make beautiful websites regardless of your design experience.</p>
+      </CardBody>
+      <Divider/>
+      <CardFooter>
+        <Link
+          isExternal
+          showAnchorIcon
+          href="https://github.com/nextui-org/nextui"
+        >
+          Visit source code on GitHub.
+        </Link>
+      </CardFooter>
+    </Card>
+  );
 }
