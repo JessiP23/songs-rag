@@ -3,6 +3,7 @@
 import React, {useState, useEffect} from "react";
 import { db } from "@/firebaseConfig";
 import {collection, getDocs} from 'firebase/firestore'
+import Header from "@/components/Header";
 
 const Dashboard = () => {
     const [songs, setSongs] = useState([]);
@@ -23,6 +24,7 @@ const Dashboard = () => {
 
     return(
         <div>
+          <Header />
             <h1>Song Recommendations</h1>
             <ul>
                 {songs.map(song => (
