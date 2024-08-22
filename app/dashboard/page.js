@@ -15,7 +15,7 @@ const CardComponent = () => {
     setSongs(songsList);
   };
 
-  // Example: Function to add a song, not inside useEffect
+  // Feature to add private songs to the platform. not added yet
   const addSong = async (newSong) => {
     try {
       await addDoc(collection(db, 'songs'), newSong);
@@ -25,7 +25,8 @@ const CardComponent = () => {
     }
   };
 
-  // Example: Function to delete a song
+  // id does not work as firebase deletion
+  // Changed id to firebaseId
   const deleteSong = async (firestoreId) => {
     try {
       const songDocRef = doc(db, 'songs', firestoreId);
@@ -38,7 +39,7 @@ const CardComponent = () => {
 
   useEffect(() => {
     fetchSongs(); // Fetch songs initially when the component loads
-  }, []); // Empty dependency array means it runs only once
+  }, []); // Run once
 
   return (
     <div>
@@ -56,6 +57,7 @@ const CardComponent = () => {
                 padding: '20px',
               }}
             >
+              {/* retrieve songs from the chatbot */}
               {songs.map((song) => (
                 <Card
                   key={song.firestoreId}
@@ -85,6 +87,7 @@ const CardComponent = () => {
                     >
                       Listen Song
                     </Link>
+                    {/* calling the deletion function */}
                     <Button onClick={() => deleteSong(song.firestoreId)} className="cursor-pointer">Delete</Button>
                   </CardFooter>
                 </Card>
