@@ -6,7 +6,7 @@ import React from 'react'
 // In this page i am allow to add only songs from the users after achieving a chatbot response. They will have the feature to add to main platform or delete (from firebase) and from those songs users can look up to those songs for rating. 
 
 // Once songs are appearing, they will have a rating button where users can click on it, select a start and add a comment, then this will update the rating system by using pinecone(if possible) or any other technology.
-// 
+// Comments will be visible for all users in the platform so they can see the performance of the songs and an average in all stars reviews added (from all users)
 
 export default function RatingSong () {
     return (
