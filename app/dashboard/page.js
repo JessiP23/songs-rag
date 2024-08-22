@@ -27,41 +27,53 @@ const CardComponent = () => {
     <div>
       <Header />
       <div>
-            <div className="flex flex-row w-full">
-              <div className="flex-1 overflow-x-auto">
-                <h1>Song Recommendations</h1>
-                <div className="flex flex-row">
-                  {songs.map(song => (
-                    <Card key={song.id} className="max-w-[400px] mr-4">
-                      <CardHeader className="flex gap-3">
-                        <div className="flex flex-col">
-                          <p className="text-md">{song.title}</p>
-                          <p className="text-small text-default-500">{song.channel}</p>
-                        </div>
-                      </CardHeader>
-                      <Divider />
-                      <CardBody>
-                        <p>{song.description}</p>
-                      </CardBody>
-                      <Divider />
-                      <CardFooter>
-                        <Link
-                          isExternal
-                          showAnchorIcon
-                          href={song.link}
-                        >
-                          Listen Song
-                        </Link>
-                      </CardFooter>
-                    </Card>
-                  ))}
-                </div>
-              </div>
-              <div className="w-60 text-right">
-                Number of songs: {songs.length}
-              </div>
+        <div className="flex flex-row w-full">
+          <div className="flex-1 overflow-x-auto">
+            <h1 className="p-6 text-center">Song List</h1>
+            <div
+              className="flex flex-row overflow-x-auto"
+              style={{
+                width: '100%',
+                height: '100%', 
+                overflowX: 'auto', 
+                padding: '20px',
+                gap: '25px', 
+              }}
+            >
+              {songs.map(song => (
+                <Card key={song.id} className="w-72 m-7">
+                  <CardHeader className="flex gap-3">
+                    <div className="flex flex-col">
+                      <p className="text-2xl text-bold">{song.title}</p>
+                      <p className="text-small text-default-500">{song.channel}</p>
+                    </div>
+                  </CardHeader>
+                  <Divider />
+                  <CardBody>
+                    <p>{song.description}</p>
+                  </CardBody>
+                  <Divider />
+                  <CardFooter>
+                    <Link
+                      isExternal
+                      showAnchorIcon
+                      href={song.link}
+                    >
+                      Listen Song
+                    </Link>
+                  </CardFooter>
+                </Card>
+              ))}
             </div>
           </div>
+          <div className="w-[30%] text-center font-bold">
+            Number of songs: 
+            <div className="text-3xl">
+            {songs.length}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
