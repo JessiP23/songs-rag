@@ -2,12 +2,13 @@
 
 import React, {useState, useEffect} from "react";
 import { db } from "@/firebaseConfig";
-import {collection, getDocs} from 'firebase/firestore'
+import {collection, deleteDoc, getDocs, doc} from 'firebase/firestore'
 import Header from "@/components/Header";
-import {Card, CardHeader, CardBody, CardFooter, Divider, Link} from "@nextui-org/react";
+import {Card, CardHeader, CardBody, CardFooter, Divider, Link, Button} from "@nextui-org/react";
 
 const CardComponent = () => {
-  const [songs, setSongs] = useState([]);
+  const [songs, setSongs ] = useState([]);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchSongs = async () => {
@@ -22,6 +23,18 @@ const CardComponent = () => {
 
     fetchSongs();
   }, []);
+
+  const deleteSong = async(id) => {
+    try {
+      // debugging
+      console.log(`Deleting song with ID: ${id}`)
+      await deleteDoc(doc(db, 'songs', id));
+      console.log(`Song deleted successfully`);
+      setSongs(songs.filter((song) => song.id !== id));
+    } catch (err) {
+      setError(err.message);
+    }
+  }
 
   return (
     <div>
@@ -39,9 +52,9 @@ const CardComponent = () => {
                 padding: '20px',
               }}
             >
-              {songs.map(song => (
+              {songs.map((song, index) => (
                 <Card
-                  key={song.id}
+                  key={index}
                   className="w-72 m-7 border border-gray-200 rounded-md shadow-md p-4"
                   style={{
                     flex: '0 0 25%',
@@ -68,6 +81,7 @@ const CardComponent = () => {
                     >
                       Listen Song
                     </Link>
+                    <Button onClick={() => deleteSong(song.id)} className="cursor-pointer">Delete</Button>
                   </CardFooter>
                 </Card>
               ))}
