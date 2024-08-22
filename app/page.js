@@ -16,13 +16,16 @@ export default function Home() {
             <h1 className="text-3xl font-bold mb-4">Rate My Song</h1>
             <p className="text-lg text-gray-600 mb-4">Discover new music and rate your favorite songs!</p>
           </div>
+          {/* spacing for images in initial screen */}
           <div className="w-[60vw] relative">
-            <Image src={Image1} className="w-full h-64 object-cover rounded-lg shadow-md" />
-            <Image src={Image2} className="absolute top-4 left-4 w-1/4 h-32 object-cover rounded-lg shadow-md" />
+            <Image src={Image1} className="w-full h-screen object-cover rounded-lg shadow-md" />
+            <Image src={Image2} className="absolute bottom-4 left-4 w-1/2 h-96 object-cover rounded-lg shadow-md" />
           </div>
         </div>
       </div>
+      {/* feature section */}
       <div className="flex flex-wrap justify-center mb-4">
+        {/* feature list */}
           <div className="flex flex-col items-center p-4 bg-white rounded-lg shadow-md w-64 m-4">
             <i className="fas fa-music text-3xl text-gray-600" />
             <p className="text-lg text-gray-600">Discover new music</p>
