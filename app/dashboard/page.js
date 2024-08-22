@@ -4,30 +4,29 @@ import React, {useState, useEffect} from "react";
 import { db } from "@/firebaseConfig";
 import {collection, getDocs} from 'firebase/firestore'
 import Header from "@/components/Header";
-import CardComponent from "@/components/Card";
-import {Card, CardHeader, CardBody, CardFooter, Divider, Link, Image} from "@nextui-org/react";
+import {Card, CardHeader, CardBody, CardFooter, Divider, Link} from "@nextui-org/react";
 
-const Dashboard = () => {
-    const [songs, setSongs] = useState([]);
+const CardComponent = () => {
+  const [songs, setSongs] = useState([]);
 
-    useEffect(() => {
-        const fetchSongs = async () => {
-          try {
-            const querySnapshot = await getDocs(collection(db, 'songs'));
-            const songsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-            setSongs(songsData);
-          } catch (error) {
-            console.error("Error fetching songs: ", error);
-          }
-        };
-    
-        fetchSongs();
-      }, []);
+  useEffect(() => {
+    const fetchSongs = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'songs'));
+        const songsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setSongs(songsData);
+      } catch (error) {
+        console.error("Error fetching songs: ", error);
+      }
+    };
 
-    return(
-        <div>
-          <Header />
-          <div>
+    fetchSongs();
+  }, []);
+
+  return (
+    <div>
+      <Header />
+      <div>
             <div className="flex flex-row w-full">
               <div className="flex-1 overflow-x-auto">
                 <h1>Song Recommendations</h1>
@@ -63,8 +62,8 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-        </div>
-    );
+    </div>
+  );
 };
-        
-export default Dashboard;
+
+export default CardComponent;
