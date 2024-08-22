@@ -23,6 +23,11 @@ export default function Header() {
             Add songs
           </Link>
         </NavbarItem>
+        <NavbarItem isActive>
+          <Link href="/chatbot" aria-current="page">
+            Rate songs
+          </Link>
+        </NavbarItem>
       </NavbarContent>
       <div className="flex items-center gap-4">
         <NavbarItem className="hidden lg:flex">

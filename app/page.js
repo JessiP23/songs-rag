@@ -4,6 +4,9 @@ import Header from "@/components/Header";
 import Image1 from '../images/home.jpg'
 import Image2 from '../images/home1.jpg'
 import Image from "next/image";
+import MusicVideoIcon from '@mui/icons-material/MusicVideo'
+import StarHalfIcon from '@mui/icons-material/StarHalf'
+import SpatialAudioOffIcon from '@mui/icons-material/SpatialAudioOff';
 
 export default function Home() {
   return (
@@ -30,17 +33,17 @@ export default function Home() {
         <h1 className="text-2xl text-center pb-12">Features</h1>  
         {/* feature list */}
         <div className="flex flex-wrap justify-center">
-          <div className="flex flex-col items-center p-4 bg-white rounded-lg shadow-md w-64 m-4">
-            <i className="fas fa-music text-3xl text-gray-600" />
+          <div className="flex flex-row items-center p-4 bg-white rounded-lg shadow-md w-72 m-4">
+            <MusicVideoIcon sx={{ fontSize: '30px', marginRight: '16px' }} />
             <p className="text-lg text-gray-600">Discover new music</p>
           </div>
-          <div className="flex flex-col items-center p-4 bg-white rounded-lg shadow-md w-64 m-4">
-            <i className="fas fa-star text-3xl text-gray-600" />
+          <div className="flex flex-row items-center p-4 bg-white rounded-lg shadow-md w-72 m-4">
+            <StarHalfIcon sx={{ fontSize: '30px', marginRight: '16px' }} />
             <p className="text-lg text-gray-600">Rate your favorite songs</p>
           </div>
-          <div className="flex flex-col items-center p-4 bg-white rounded-lg shadow-md w-64 m-4">
-            <i className="fas fa-chart-bar text-3xl text-gray-600" />
-            <p className="text-lg text-gray-600">Explore music trends</p>
+          <div className="flex flex-row items-center p-4 bg-white rounded-lg shadow-md w-72 m-4">
+            <SpatialAudioOffIcon sx={{ fontSize: '30px', marginRight: '16px' }} />
+            <p className="text-lg text-gray-600">Interact with music lovers</p>
           </div>
         </div>
       </div>
