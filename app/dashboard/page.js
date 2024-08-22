@@ -1,47 +1,44 @@
 'use client'
 
 import React, { useState, useEffect } from "react";
-import { db } from "@/firebaseConfig";
 import { collection, deleteDoc, getDocs, doc } from 'firebase/firestore';
 import Header from "@/components/Header";
 import { Card, CardHeader, CardBody, CardFooter, Divider, Link, Button } from "@nextui-org/react";
+import { db } from "@/firebaseConfig";
 
 const CardComponent = () => {
   const [songs, setSongs] = useState([]);
-  const [error, setError] = useState(null);
 
-  // Fetch songs initially when the component mounts
-  useEffect(() => {
-    const fetchSongs = async () => {
-      try {
-        const querySnapshot = await getDocs(collection(db, 'songs'));
-        const songsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        setSongs(songsData);
-      } catch (error) {
-        console.error("Error fetching songs: ", error);
-        setError("Failed to fetch songs.");
-      }
-    };
+  const fetchSongs = async () => {
+    const querySnapshot = await getDocs(collection(db, "songs"));
+    const songsList = querySnapshot.docs.map(doc => ({ firestoreId: doc.id, ...doc.data() }));
+    setSongs(songsList);
+  };
 
-    fetchSongs();
-  }, []); // The empty array ensures this runs only once when the component mounts
-
-  // Delete a song and fetch the updated list
-  const deleteSong = async (id) => {
+  // Example: Function to add a song, not inside useEffect
+  const addSong = async (newSong) => {
     try {
-      console.log(`Deleting song with ID: ${id}`);
-      await deleteDoc(doc(db, 'songs', id));
-      console.log(`Song deleted successfully`);
-
-      // Fetch songs again to update the state
-      const querySnapshot = await getDocs(collection(db, 'songs'));
-      const updatedSongs = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      setSongs(updatedSongs);
-    } catch (err) {
-      console.error("Error deleting song: ", err);
-      setError("Failed to delete song.");
+      await addDoc(collection(db, 'songs'), newSong);
+      fetchSongs(); // Refresh the list after adding a song
+    } catch (error) {
+      console.error("Error adding song:", error);
     }
-  }
+  };
+
+  // Example: Function to delete a song
+  const deleteSong = async (firestoreId) => {
+    try {
+      const songDocRef = doc(db, 'songs', firestoreId);
+      await deleteDoc(songDocRef);
+      fetchSongs(); // Refresh the list after deletion
+    } catch (error) {
+      console.error("Error deleting song:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchSongs(); // Fetch songs initially when the component loads
+  }, []); // Empty dependency array means it runs only once
 
   return (
     <div>
@@ -59,9 +56,9 @@ const CardComponent = () => {
                 padding: '20px',
               }}
             >
-              {songs.map((song, index) => (
+              {songs.map((song) => (
                 <Card
-                  key={index}
+                  key={song.firestoreId}
                   className="w-72 m-7 border border-gray-200 rounded-md shadow-md p-4"
                   style={{
                     flex: '0 0 25%',
@@ -88,7 +85,7 @@ const CardComponent = () => {
                     >
                       Listen Song
                     </Link>
-                    <Button onClick={() => deleteSong(song.id)} className="cursor-pointer">Delete</Button>
+                    <Button onClick={() => deleteSong(song.firestoreId)} className="cursor-pointer">Delete</Button>
                   </CardFooter>
                 </Card>
               ))}
