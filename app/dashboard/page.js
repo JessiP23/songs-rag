@@ -64,6 +64,7 @@ const CardComponent = () => {
                       isExternal
                       showAnchorIcon
                       href={song.link}
+                      className="text-red-500"
                     >
                       Listen Song
                     </Link>
