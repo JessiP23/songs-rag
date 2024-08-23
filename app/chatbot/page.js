@@ -6,9 +6,10 @@ import { useState } from "react";
 
 export default function Chatbot() {
   const [messages, setMessages] = useState([
+
     {
       role: "assistant",
-      content: "Hi! I am the Rate My Professor support assistant. How can I help you today?"
+      content: "Hi! I am the Rate My Song support assistant. How can I help you today?"
     }
   ])
   const [message, setMessage] = useState('')
@@ -20,6 +21,8 @@ export default function Chatbot() {
     ])
 
     setMessage('')
+
+    //fetch response to youtube backend configuration
 
     const response = fetch('/api/youtube', {
       method: 'POST',
@@ -75,6 +78,7 @@ export default function Chatbot() {
               </Box>
             ))}
             </Stack>
+            {/* stack to send response */}
             <Stack direction='row' spacing={2}>
               <TextField label="Message" fullWidth value={message} onChange={(e) => {
                 setMessage(e.target.value)
