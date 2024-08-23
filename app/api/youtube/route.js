@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import OpenAI from "openai";
 import { db, collection, addDoc } from "@/firebaseConfig";
 
+
+// prompt for my chatbot song searcher
 const systemPrompt = `
 Rate My Song Agent
 
@@ -55,13 +57,16 @@ Response: "Here are some relaxing songs:
 ... (and so on)
 `
 
+// function that looks on youtube api songs and studies the chatbot response to detect the songs and immediately add to firebase and the dashboard.
 export async function POST(req) {
     const data = await req.json();
     const openai = new OpenAI();
 
     async function fetchYoutubeData(query) {
         const response = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=${query}&key=${process.env.YOUTUBE_API_KEY}`);
+        // debugging bug
         const rawText = await response.text();
+        // from raw data collect data such as the id, title, link of video, and channel
         if (rawText) {
             try {
                 const data = JSON.parse(rawText);
@@ -83,19 +88,26 @@ export async function POST(req) {
         }
     }
 
+    // from text detect songs from the chatbot response. 
+
     const text = data[data.length - 1].content;
     const songs = await fetchYoutubeData(text);
 
     // Store songs in Firebase
     const songsCollection = collection(db, 'songs');
+
+    // iterate over each song of all the songs in the chatbot songs.
     for (const song of songs) {
         await addDoc(songsCollection, song);
     }
+
+    // songs response
 
     const songsResponse = {
         message: 'Here are the top songs based on your query:',
         songs
     };
+
 
     const lastMessage = data[data.length - 1];
     const lastMessageContent = lastMessage.content + JSON.stringify(songsResponse);
@@ -110,6 +122,8 @@ export async function POST(req) {
         model: 'gpt-4o-mini',
         stream: true,
     });
+
+    // openai stream
 
     const stream = new ReadableStream({
         async start(controller) {
