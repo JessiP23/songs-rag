@@ -7,9 +7,10 @@ import { Card, CardHeader, CardBody, CardFooter, Divider, Link, Button } from "@
 import { db } from "@/firebaseConfig";
 
 const CardComponent = () => {
+  // songs state variable for dashboard songs coming from firebase
   const [songs, setSongs] = useState([]);
-  const [globalSongs, setGlobalSongs] = useState([]); // new state for global songs
 
+  // fetch songs from firebase with songs collection
   const fetchSongs = async () => {
     const querySnapshot = await getDocs(collection(db, "songs"));
     const songsList = querySnapshot.docs.map(doc => ({ firestoreId: doc.id, ...doc.data() }));
@@ -25,6 +26,9 @@ const CardComponent = () => {
     }
   };
 
+  // delete Song with firestoreId
+  // switched to firestoreId such as id by itself was taken from the chatbot response/
+  // if using id, will retrieve an error of repeated id
   const deleteSong = async (firestoreId) => {
     try {
       const songDocRef = doc(db, 'songs', firestoreId);
@@ -35,6 +39,7 @@ const CardComponent = () => {
     }
   };
 
+  // logic to add songs from dashboard to global platform
   const addSongToGlobalPlatform = async (song) => {
     try {
       // Add song to global platform collection
@@ -51,8 +56,10 @@ const CardComponent = () => {
 
   return (
     <div>
+      {/* header */}
       <Header />
       <div>
+        {/* card config */}
         <div className="flex flex-row w-full">
           <div className="flex-1 overflow-x-auto">
             <h1 className="p-6 text-center mb-10 font-bold text-4xl">Song List</h1>
@@ -65,7 +72,7 @@ const CardComponent = () => {
                 padding: '20px',
               }}
             >
-              {/* retrieve songs from the chatbot */}
+              {/* retrieve songs from firebase */}
               {songs.map((song) => (
                 <Card
                   key={song.firestoreId}
@@ -105,6 +112,7 @@ const CardComponent = () => {
             </div>
           </div>
           <div className="w-[30%] text-center font-bold">
+            {/* analytics */}
             <h1 className="p-6 text-xl mt-12">Number of songs:</h1>
             <div className="text-5xl">
             {songs.length}
