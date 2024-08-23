@@ -2,6 +2,7 @@ import React from 'react';
 
 const Footer = () => {
   return (
+    // footer basic setup
     <footer className="bg-white py-4">
       <div className="h-px bg-gray-200 mb-4" />
       <div className="max-w-md mx-auto px-4">

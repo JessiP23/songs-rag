@@ -3,6 +3,8 @@ import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button } from "@n
 
 export default function Header() {
   return (
+    // ui design for header 
+    // still missing to add logic for user authentication
     <Navbar shouldHideOnScroll className="w-[100vw] border-b border-gray-200 p-5 flex justify-between">
       <NavbarBrand className="flex items-center">
         <p className="font-bold text-inherit">Rating AI</p>

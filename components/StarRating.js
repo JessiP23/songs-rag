@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import StarIcon from '@mui/icons-material/Star';
 
+// feature of stars with css animation for frontend page for better visibility
+
 export default function StarRating() {
   const [rating, setRating] = useState(null);
   const [rateColor, setColor] = useState(null);
