@@ -16,6 +16,7 @@ export default function Home() {
       <div className="h-screen flex flex-col items-center p-4 w-full">
         {/* Title and description of app */}
         <div className="flex flex-row mb-4 w-full">
+          {/* frontend landing page for Rate My song ai */}
         <div className="w-[40vw] flex flex-col justify-center p-8">
           <h1 className="text-4xl font-bold mb-8">Rate My Song</h1>
           <p className="text-lg text-gray-600 mb-6">Discover new music and rate your favorite songs!</p>
