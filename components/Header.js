@@ -41,11 +41,6 @@ export default function Header() {
           </Link>
         </NavbarItem>
         <NavbarItem isActive>
-          <Link href="/rating" aria-current="page">
-            Rate songs
-          </Link>
-        </NavbarItem>
-        <NavbarItem isActive>
           <Link href="/platform" aria-current="page">
             Global Platform
           </Link>

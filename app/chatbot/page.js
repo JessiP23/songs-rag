@@ -2,12 +2,15 @@
 import Header from "@/components/Header";
 import { Box, Button, Stack, TextField, Avatar, Typography } from "@mui/material";
 import { useState, useEffect } from "react";
-import { useUser } from '@clerk/nextjs';
+import { useUser, SignedIn, SignedOut, SignInButton, useClerk } from '@clerk/nextjs';
 import { db } from "@/firebaseConfig";
 import { addDoc, collection, doc } from "firebase/firestore";
+import { useRouter } from "next/navigation";
 
 export default function Chatbot() {
   const { user, isLoaded } = useUser(); // Get the authenticated user from Clerk
+  const router = useRouter();
+  const {signOut} = useClerk();
   const [messages, setMessages] = useState([
     {
       role: "assistant",
@@ -16,13 +19,6 @@ export default function Chatbot() {
   ]);
   const [message, setMessage] = useState('');
 
-  useEffect(() => {
-    if (!isLoaded) return;
-    if (!user) {
-      // If user is not authenticated, redirect to the home page
-      window.location.href = '/';
-    }
-  }, [isLoaded, user]);
 
   const sendMessage = async () => {
     setMessages((messages) => [
@@ -99,6 +95,7 @@ export default function Chatbot() {
   return (
     <div>
       <Header />
+      <SignedIn>
       <Box
         width="100vw"
         height="100vh"
@@ -136,6 +133,19 @@ export default function Chatbot() {
           </Stack>
         </Stack>
       </Box>
+      </SignedIn>
+      <SignedOut>
+      <div className="flex flex-col items-center justify-center h-screen p-4">
+          <div className="text-center mb-4">
+            <p className="text-lg text-gray-600">You are not authenticated. Click below to sign up or log in.</p>
+            <SignInButton mode="modal" forceRedirectUrl="/dashboard">
+              <Button className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-4 px-8 rounded shadow-md mt-4">
+                Sign up
+              </Button>
+            </SignInButton>
+          </div>
+        </div>
+      </SignedOut>
     </div>
   );
 }
