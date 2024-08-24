@@ -4,16 +4,20 @@ import StarIcon from '@mui/icons-material/Star';
 // feature of stars with css animation for frontend page for better visibility
 
 export default function StarRating() {
-  const [rating, setRating] = useState(null);
   const [rateColor, setColor] = useState(null);
 
+  // animation for hovering onto the stars
   const handleMouseEnter = (index) => {
     setColor(index + 1);
   };
 
+  // comign back to normal when the mouse does not hover
+
   const handleMouseLeave = () => {
     setColor(null);
   };
+
+  // array of stars
 
   return (
     <>
@@ -27,6 +31,7 @@ export default function StarRating() {
             onMouseEnter={() => handleMouseEnter(index)}
             onMouseLeave={handleMouseLeave}
           >
+            {/* rotation animation */}
             <StarIcon
               sx={{
                 fontSize: '80px',
