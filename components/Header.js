@@ -7,11 +7,18 @@ import { useRouter } from "next/navigation";
 import { Menu } from "@mui/icons-material";
 import CloseIcon from '@mui/icons-material/Close';
 
+
+//this is a header responsive that shows options like Home, Dashboard, Chatbot, and global platform.
+
+// responsive in md and sm that adds a menu icon and when clicking on it shows properties in a friendly manner.
 export default function Header() {
+  // add user authentication feature
   const {user}= useUser();
   const {signOut} = useAuth();
   const router = useRouter();
 
+
+  //if user decides to sign out, then it is added to the / page.
   const handleSignOut = async() => {
     try {
       await signOut();
@@ -20,8 +27,11 @@ export default function Header() {
       console.error("Error signing out:", error);
     }
   };
+
+  // responsive menu design
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  // toggle menu for md and sm devices
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -34,7 +44,7 @@ export default function Header() {
         <p className="font-bold text-inherit text-xl lg:text-2xl">Rating AI</p>
       </NavbarBrand>
       
-      {/* Menu Icon for mobile */}
+      {/* Menu Icon for sm devices */}
       <div className="lg:hidden flex items-center">
         <button onClick={toggleMenu} className="text-gray-800">
           {isMenuOpen ? (
@@ -45,6 +55,7 @@ export default function Header() {
         </button>
       </div>
       
+      {/* options for header */}
       <NavbarContent className={`flex-col lg:flex-row lg:items-center gap-4 ${isMenuOpen ? 'flex' : 'hidden'} lg:flex`}>
         <NavbarItem>
           <Link color="foreground" href="/">
@@ -68,6 +79,7 @@ export default function Header() {
         </NavbarItem>
       </NavbarContent>
       
+      {/* signing out users. */}
       <div className="flex items-center gap-4">
         {user && (
           <div className="flex flex-col lg:flex-row items-center gap-2">
