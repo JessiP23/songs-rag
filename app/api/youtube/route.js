@@ -59,11 +59,15 @@ Response: "Here are some relaxing songs:
 // Function to fetch YouTube data
 async function fetchYoutubeData(query) {
     try {
+        // youtube api
         const response = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=${query}&key=${process.env.YOUTUBE_API_KEY}`);
         const rawText = await response.text();
         if (rawText) {
+            // json raw data
             const data = JSON.parse(rawText);
+            // iterate the array
             if (Array.isArray(data.items)) {
+                // calculating and analyzing from the response given by the chatbot id, title, link of the video, and the channel
                 return data.items.map(item => ({
                     id: item.id.videoId,
                     title: item.snippet.title,
@@ -83,8 +87,14 @@ async function fetchYoutubeData(query) {
 
 // Function to handle POST request
 export async function POST(req) {
-    const { userId, query } = await req.json(); // Expecting userId and query in the request body
-    console.log('Received request:', {userId, query});
+    // Expecting userId and query in the request body
+    const { userId, query } = await req.json(); 
+
+
+    // debugging userId 
+    //console.log('Received request:', {userId, query});
+
+    
     if (!userId || !query) {
         return new NextResponse('Missing user ID or query', { status: 400 });
     }
@@ -92,6 +102,7 @@ export async function POST(req) {
     const openai = new OpenAI();
 
     // Fetch YouTube data based on the query
+    // initialize songs to be an object of individual songs
     let songs = [];
     try {
         songs = await fetchYoutubeData(query);
@@ -100,12 +111,20 @@ export async function POST(req) {
     }
 
     // Store songs in Firebase with user information
-    const songsCollection = collection(db, 'songs');
+    //const songsCollection = collection(db, 'songs');
 
+    // update songs to userid for each user have their own set of songs
+
+    // for loop to add individual songs to the corresponding user
     for (const song of songs) {
         try {
-            const userSongsCollection = collection(db, 'users', userId, 'songs'); // Subcollection path: /users/{userId}/songs
-            await addDoc(userSongsCollection, song); // Store the song under the user's subcollection
+            // collection songs and users
+             // Subcollection path: /users/{userId}/songs from firebase 
+            const userSongsCollection = collection(db, 'users', userId, 'songs');
+            // Store the song under the user's subcollection.
+
+            // example of firebase data  /users/user_2kqI7e0bL6EFeDQwKxBdWPETHEN/songs/bQWTlPXcHXmT2Jb7V1WR
+            await addDoc(userSongsCollection, song); 
         } catch (error) {
             console.error('Error adding song to Firebase:', error);
         }
@@ -116,6 +135,8 @@ export async function POST(req) {
         message: 'Here are the top songs based on your query:',
         songs
     };
+
+    // completion chat response OpenAI
 
     const completion = await openai.chat.completions.create({
         messages: [
