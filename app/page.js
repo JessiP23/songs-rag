@@ -11,6 +11,8 @@ import StarRating from "@/components/StarRating";
 import Footer from "@/components/Footer";
 import { SignInButton, UserButton } from "@clerk/clerk-react";
 
+
+// home page for allowing to authenticate before having access to the app itself. 
 export default function Home() {
   return (
     <div>
@@ -35,6 +37,7 @@ export default function Home() {
         </div>
       </div>
 
+    {/* star rating animation for better ui design. */}
       <div className="text-center pt-[20%]">
         <StarRating />
       </div>
