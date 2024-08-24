@@ -1,10 +1,10 @@
-#Music Dashboard App
+# Music Dashboard App
 
-##Overview
+## Overview
 
 Rate my song along with a music dashboard app built with Next.js, Firebase, Clerk, Pinecone, OpenAI, Node.js, and Youtube API. This app allows users to log in, track their favorite songs, and interact with a chatbot AI to discover songs from their favorite artists by using Youtube API. Users can upload these songs to a global platform, where they can browse, listen, and comment on songs shared by others. 
 
-##Features
+## Features
 
 - **User Authentication:** Secure login and account management powered by Clerk.
 - **Personal Dashboard:** Users can upload songs from its personal dashboard to the global platform and keep track of the number of comments made on the global platform. 
