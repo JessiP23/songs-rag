@@ -6,14 +6,14 @@ import { useRouter } from 'next/navigation';
 import Header from "@/components/Header";
 import { Card, CardHeader, CardBody, CardFooter, Divider, Link, Button } from "@nextui-org/react";
 import { db } from "@/firebaseConfig";
-import { useUser, useAuth } from '@clerk/nextjs';
+import { useUser, SignedIn, SignedOut, SignInButton } from '@clerk/nextjs';
 import { useClerk } from "@clerk/nextjs";
 
 const CardComponent = () => {
   const [songs, setSongs] = useState([]);
   const { user } = useUser();
   const router = useRouter();
-  const {signOut} = useClerk();
+  const { signOut } = useClerk();
 
   const fetchSongs = async () => {
     if (!user) return;
@@ -69,63 +69,78 @@ const CardComponent = () => {
   return (
     <div>
       <Header />
-      <div>
-        <div className="flex flex-row w-full">
-          <div className="flex-1 overflow-x-auto">
-            <h1 className="p-6 text-center mb-10 font-bold text-4xl">Song List</h1>
-            <div
-              className="flex flex-row flex-wrap overflow-x-auto"
-              style={{
-                width: '100%',
-                height: '400px',
-                overflowX: 'auto',
-                padding: '20px',
-              }}
-            >
-              {songs.map((song) => (
-                <Card
-                  key={song.firestoreId}
-                  className="w-72 m-7 border border-gray-200 rounded-md shadow-md p-4"
-                  style={{
-                    flex: '0 0 25%',
-                    marginRight: '20px',
-                  }}
-                >
-                  <CardHeader className="flex gap-3">
-                    <div className="flex flex-col">
-                      <p className="text-2xl text-bold">{song.title}</p>
-                      <p className="text-small text-default-500">{song.channel}</p>
-                    </div>
-                  </CardHeader>
-                  <Divider />
-                  <CardBody>
-                    <p>{song.description}</p>
-                  </CardBody>
-                  <Divider />
-                  <CardFooter>
-                    <Link
-                      isExternal
-                      showAnchorIcon
-                      href={song.link}
-                      className="text-red-500"
-                    >
-                      Listen Song
-                    </Link>
-                    <Button onClick={() => deleteSong(song.firestoreId)} className="cursor-pointer">Delete</Button>
-                    <Button onClick={() => addSongToGlobalPlatform(song)} className="cursor-pointer">Add to Global Platform</Button>
-                  </CardFooter>
-                </Card>
-              ))}
+      <SignedIn>
+        <div>
+          <div className="flex flex-row w-full">
+            <div className="flex-1 overflow-x-auto">
+              <h1 className="p-6 text-center mb-10 font-bold text-4xl">Song List</h1>
+              <div
+                className="flex flex-row flex-wrap overflow-x-auto"
+                style={{
+                  width: '100%',
+                  height: '400px',
+                  overflowX: 'auto',
+                  padding: '20px',
+                }}
+              >
+                {songs.map((song) => (
+                  <Card
+                    key={song.firestoreId}
+                    className="w-72 m-7 border border-gray-200 rounded-md shadow-md p-4"
+                    style={{
+                      flex: '0 0 25%',
+                      marginRight: '20px',
+                    }}
+                  >
+                    <CardHeader className="flex gap-3">
+                      <div className="flex flex-col">
+                        <p className="text-2xl text-bold">{song.title}</p>
+                        <p className="text-small text-default-500">{song.channel}</p>
+                      </div>
+                    </CardHeader>
+                    <Divider />
+                    <CardBody>
+                      <p>{song.description}</p>
+                    </CardBody>
+                    <Divider />
+                    <CardFooter>
+                      <Link
+                        isExternal
+                        showAnchorIcon
+                        href={song.link}
+                        className="text-red-500"
+                      >
+                        Listen Song
+                      </Link>
+                      <Button onClick={() => deleteSong(song.firestoreId)} className="cursor-pointer">Delete</Button>
+                      <Button onClick={() => addSongToGlobalPlatform(song)} className="cursor-pointer">Add to Global Platform</Button>
+                    </CardFooter>
+                  </Card>
+                ))}
+              </div>
             </div>
-          </div>
-          <div className="w-[30%] text-center font-bold">
-            <h1 className="p-6 text-xl mt-12">Number of songs:</h1>
-            <div className="text-5xl">
-              {songs.length}
+            <div className="w-[30%] text-center font-bold">
+              <h1 className="p-6 text-xl mt-12">Number of songs:</h1>
+              <div className="text-5xl">
+                {songs.length}
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </SignedIn>
+
+      <SignedOut>
+        <div className="flex flex-col items-center justify-center h-screen p-4">
+          <div className="text-center mb-4">
+            <p className="text-lg text-gray-600">You are not authenticated. Click below to sign up or log in.</p>
+            <SignInButton mode="modal" forceRedirectUrl="/dashboard">
+              <Button className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-4 px-8 rounded shadow-md mt-4">
+                Sign up
+              </Button>
+            </SignInButton>
+          </div>
+        </div>
+      </SignedOut>
     </div>
   );
 };
