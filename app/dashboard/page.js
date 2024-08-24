@@ -116,105 +116,105 @@ const CardComponent = () => {
     <div>
       <Header />
       <SignedIn>
-  <div className="p-8 bg-gray-50 min-h-screen">
-    <div className="flex flex-row w-full space-x-4">
-      <div className="flex-1 overflow-x-auto bg-white rounded-lg shadow-lg">
-        <h1 className="p-6 text-center mb-6 font-bold text-3xl text-gray-800 border-b border-gray-200">Song List</h1>
-        <div
-          className="flex flex-row flex-wrap overflow-x-auto"
-          style={{
-            width: '100%',
-            height: '400px',
-            overflowX: 'auto',
-            padding: '20px',
-          }}
-        >
-          {songs.map((song) => (
-            <Card
-              key={song.firestoreId}
-              className="w-72 m-4 border border-gray-300 rounded-lg shadow-md p-4 bg-white"
-              style={{
-                flex: '0 0 25%',
-                marginRight: '20px',
-              }}
-            >
-              <CardHeader className="flex gap-3 items-center">
-                <div className="flex flex-col">
-                  <p className="text-xl font-semibold text-gray-900">{song.title}</p>
-                  <p className="text-sm text-gray-500">{song.channel}</p>
-                </div>
-              </CardHeader>
-              <Divider />
-              <CardBody>
-                <p className="text-gray-700">{song.description}</p>
-              </CardBody>
-              <Divider />
-              <CardFooter className="flex justify-between items-center">
-                <Link
-                  isExternal
-                  showAnchorIcon
-                  href={song.link}
-                  className="text-red-500 hover:text-red-700"
-                >
-                  Listen Song
-                </Link>
-                <Button onClick={() => deleteSong(song.firestoreId)} className="text-red-600 hover:text-red-800">Delete</Button>
-                <Button onClick={() => addSongToGlobalPlatform(song)} className="text-blue-600 hover:text-blue-800">Add to Global Platform</Button>
-              </CardFooter>
-            </Card>
-          ))}
-        </div>
-      </div>
-      <div className="w-[30%] bg-white rounded-lg shadow-lg p-6">
-        <h1 className="text-xl font-bold text-gray-800 mb-4">Analytics</h1>
-        <div className="mb-8">
-          <h2 className="text-lg font-semibold text-gray-600">Number of songs:</h2>
-          <div className="text-4xl font-bold text-gray-900">{songs.length}</div>
-        </div>
-        <div className="mb-8">
-          <h2 className="text-lg font-semibold text-gray-600">Number of comments:</h2>
-          <div className="text-4xl font-bold text-gray-900">{commentCount}</div>
-        </div>
-        <div className="w-full h-64">
-          <Line
-            data={{
-              labels: ['Songs', 'Comments'],
-              datasets: [
-                {
-                  label: 'Count',
-                  data: [songs.length, commentCount],
-                  backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                  borderColor: 'rgba(75, 192, 192, 1)',
-                  borderWidth: 1,
-                },
-              ],
-            }}
-            options={{
-              responsive: true,
-              plugins: {
-                legend: {
-                  display: true,
-                },
-                tooltip: {
-                  callbacks: {
-                    label: (tooltipItem) => {
-                      return `${tooltipItem.label}: ${tooltipItem.raw}`;
+        <div className="p-8 bg-gray-50 min-h-screen">
+          <div className="flex flex-row w-full space-x-4">
+            <div className="flex-1 overflow-x-auto bg-white rounded-lg shadow-lg">
+              <h1 className="p-6 text-center mb-6 font-bold text-3xl text-gray-800 border-b border-gray-200">Song List</h1>
+              <div
+                className="flex flex-row flex-wrap overflow-x-auto"
+                style={{
+                  width: '100%',
+                  height: '400px',
+                  overflowX: 'auto',
+                  padding: '20px',
+                }}
+              >
+                {songs.map((song) => (
+                  <Card
+                    key={song.firestoreId}
+                    className="w-72 m-4 border border-gray-300 rounded-lg shadow-md p-4 bg-white"
+                    style={{
+                      flex: '0 0 25%',
+                      marginRight: '20px',
+                    }}
+                  >
+                    <CardHeader className="flex gap-3 items-center">
+                      <div className="flex flex-col">
+                        <p className="text-xl font-semibold text-gray-900">{song.title}</p>
+                        <p className="text-sm text-gray-500">{song.channel}</p>
+                      </div>
+                    </CardHeader>
+                    <Divider />
+                    <CardBody>
+                      <p className="text-gray-700">{song.description}</p>
+                    </CardBody>
+                    <Divider />
+                    <CardFooter className="flex justify-between items-center">
+                      <Link
+                        isExternal
+                        showAnchorIcon
+                        href={song.link}
+                        className="text-red-500 hover:text-red-700"
+                      >
+                        Listen Song
+                      </Link>
+                      <Button onClick={() => deleteSong(song.firestoreId)} className="text-red-600 hover:text-red-800">Delete</Button>
+                      <Button onClick={() => addSongToGlobalPlatform(song)} className="text-blue-600 hover:text-blue-800">Add to Global Platform</Button>
+                    </CardFooter>
+                  </Card>
+                ))}
+              </div>
+            </div>
+            <div className="w-[30%] bg-white rounded-lg shadow-lg p-6">
+              <h1 className="text-xl font-bold text-gray-800 mb-4">Analytics</h1>
+              <div className="mb-8">
+                <h2 className="text-lg font-semibold text-gray-600">Number of songs:</h2>
+                <div className="text-4xl font-bold text-gray-900">{songs.length}</div>
+              </div>
+              <div className="mb-8">
+                <h2 className="text-lg font-semibold text-gray-600">Number of comments:</h2>
+                <div className="text-4xl font-bold text-gray-900">{commentCount}</div>
+              </div>
+              <div className="w-full h-64">
+                <Line
+                  data={{
+                    labels: ['Songs', 'Comments'],
+                    datasets: [
+                      {
+                        label: 'Count',
+                        data: [songs.length, commentCount],
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1,
+                      },
+                    ],
+                  }}
+                  options={{
+                    responsive: true,
+                    plugins: {
+                      legend: {
+                        display: true,
+                      },
+                      tooltip: {
+                        callbacks: {
+                          label: (tooltipItem) => {
+                            return `${tooltipItem.label}: ${tooltipItem.raw}`;
+                          },
+                        },
+                      },
                     },
-                  },
-                },
-              },
-              scales: {
-                y: {
-                  beginAtZero: true,
-                },
-              },
-            }}
-          />
+                    scales: {
+                      y: {
+                        beginAtZero: true,
+                      },
+                    },
+                  }}
+                />
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
-</SignedIn>
+      </SignedIn>
 
 
       <SignedOut>
