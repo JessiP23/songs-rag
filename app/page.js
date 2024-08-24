@@ -10,7 +10,6 @@ import SpatialAudioOffIcon from '@mui/icons-material/SpatialAudioOff';
 import StarRating from "@/components/StarRating";
 import Footer from "@/components/Footer";
 import { SignInButton, UserButton } from "@clerk/clerk-react";
-import { SignedIn, SignedOut } from "@clerk/nextjs";
 
 export default function Home() {
   return (
@@ -24,16 +23,9 @@ export default function Home() {
           <p className="text-lg text-gray-600 mb-6">Discover new music and rate your favorite songs!</p>
           <p className="text-lg text-gray-600 mb-6">Join our community of music lovers</p>
           <p className="text-lg text-gray-600 mb-6">Rate your songs</p>
-          <SignedOut>
-              <SignInButton mode="modal">
+              <SignInButton mode="modal" forceRedirectUrl="/dashboard">
                 <button className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-4 px-8 rounded shadow-md">Sign up for free</button>
               </SignInButton>
-            </SignedOut>
-
-            <SignedIn>
-              <UserButton afterSignOutUrl="/" />
-              <a href="/dashboard" className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-4 px-8 rounded shadow-md mt-4">Go to Dashboard</a>
-            </SignedIn>
         </div>
           {/* spacing for images in initial screen */}
           <div className="w-[60vw] relative">

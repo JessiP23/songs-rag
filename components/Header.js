@@ -1,7 +1,22 @@
 import React from "react";
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button } from "@nextui-org/react";
+import {useUser, useAuth, SignedIn, UserButton, useClerk} from '@clerk/nextjs';
+import { useRouter } from "next/navigation";
 
 export default function Header() {
+  const {user}= useUser();
+  const {signOut} = useAuth();
+  const router = useRouter();
+
+  const handleSignOut = async() => {
+    try {
+      await signOut();
+      router.push('/');
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
+  };
+
   return (
     // ui design for header 
     // still missing to add logic for user authentication
@@ -37,14 +52,12 @@ export default function Header() {
         </NavbarItem>
       </NavbarContent>
       <div className="flex items-center gap-4">
-        <NavbarItem className="hidden lg:flex">
-          <Link href="#">Login</Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Button as={Link} color="primary" href="#" variant="flat">
-            Sign Up
-          </Button>
-        </NavbarItem>
+        {user && (
+          <div>
+              <UserButton afterSignOutUrl="/" />
+              <Button auto onClick={handleSignOut}>Sign out</Button>
+          </div>
+        )}
       </div>
     </Navbar>
   );

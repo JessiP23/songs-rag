@@ -2,14 +2,18 @@
 
 import React, { useState, useEffect } from "react";
 import { where, query, collection, deleteDoc, getDocs, doc, addDoc } from 'firebase/firestore';
+import { useRouter } from 'next/navigation';
 import Header from "@/components/Header";
 import { Card, CardHeader, CardBody, CardFooter, Divider, Link, Button } from "@nextui-org/react";
 import { db } from "@/firebaseConfig";
-import { useUser, useSignOut } from '@clerk/nextjs';
+import { useUser, useAuth } from '@clerk/nextjs';
+import { useClerk } from "@clerk/nextjs";
 
 const CardComponent = () => {
   const [songs, setSongs] = useState([]);
   const { user } = useUser();
+  const router = useRouter();
+  const {signOut} = useClerk();
 
   const fetchSongs = async () => {
     if (!user) return;
@@ -51,6 +55,11 @@ const CardComponent = () => {
     } catch (error) {
       console.error("Error adding song to global platform:", error);
     }
+  };
+
+  const handleSignOut = async () => {
+    await signOut();
+    router.push('/');
   };
 
   useEffect(() => {
