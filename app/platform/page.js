@@ -28,46 +28,51 @@ const PlatformPage = () => {
         <div>
             <Header />
             <SignedIn>
-                <h1 className="p-6 text-center mb-10 font-bold text-4xl">Global Song Platform</h1>
-                <div
-                    className="flex flex-row flex-wrap overflow-x-auto"
-                    style={{
-                    width: '100%',
-                    height: '50%', 
-                    overflowX: 'auto', 
-                    padding: '20px',
-                    }}
-                >
-                    {/* Retrieving data coming from songs */}
-                    {globalSongs.map((song) => (
-                        <Card
-                            key={song.firestoreId}
-                            className="w-72 m-7 border border-gray-200 rounded-md shadow-md p-4"
-                            style={{
-                            flex: '0 0 25%',
-                            marginRight: '20px', 
-                            }}
-                        >
-                            <CardHeader className="flex gap-3">
-                                <div className="flex flex-col">
-                                    <p className="text-2xl text-bold">{song.title}</p>
-                                    <p className="text-small text-default-500">{song.channel}</p>
-                                </div>
-                            </CardHeader>
-                            <Divider />
-                            <CardBody>
-                            <Link
-                                    isExternal
-                                    showAnchorIcon
-                                    href={song.link}
-                                    className="text-red-500"
-                                >
-                                    Listen Song
-                                </Link>
-                                <CommentsSection songId={song.firestoreId} />
-                            </CardBody>
-                        </Card>
-                    ))}
+                <div className="p-6">
+                    <h1 className="text-center mb-10 font-bold text-4xl">Global Song Platform</h1>
+                    <div
+                        className="flex flex-wrap justify-center"
+                        style={{
+                            width: '100%',
+                            padding: '20px',
+                            overflowX: 'auto',
+                        }}
+                    >
+                        {/* Retrieving data coming from songs */}
+                        {globalSongs.map((song) => (
+                            <Card
+                                key={song.firestoreId}
+                                className="w-full sm:w-72 md:w-80 lg:w-96 m-4 border border-gray-200 rounded-md shadow-md"
+                                style={{
+                                    maxWidth: '100%',
+                                }}
+                            >
+                                <CardHeader className="flex gap-3 p-4 bg-gray-100 border-b border-gray-300">
+                                    <div className="flex flex-col">
+                                        <p className="text-2xl font-bold">{song.title}</p>
+                                        <p className="text-sm text-gray-600">{song.channel}</p>
+                                    </div>
+                                </CardHeader>
+                                <Divider />
+                                <CardBody className="p-4">
+                                    <div className="mb-4">
+                                        <Link
+                                            href={song.link}
+                                            className="text-red-500"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            Listen Song
+                                        </Link>
+                                    </div>
+                                    <div className="bg-gray-50 border-t border-gray-200 p-2 rounded-md">
+                                        <h2 className="font-bold text-lg mb-2">Comments</h2>
+                                        <CommentsSection songId={song.firestoreId} />
+                                    </div>
+                                </CardBody>
+                            </Card>
+                        ))}
+                    </div>
                 </div>
             </SignedIn>
             <SignedOut>
