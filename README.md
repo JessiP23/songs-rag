@@ -43,3 +43,60 @@ Ensure you have installed the following tools on your development machine:
 git clone https://github.com/JessiP23/songs-rag.git
 cd songs-rag
 ```
+
+2. **Install dependencies:**
+
+```bash
+npm install
+```
+
+3. **Set up environment variables:**
+
+Create a `.env.local` file in the root of your project and add the following environment variables:
+
+```bash
+OPENAI_API_KEY=
+PINECONE_API_KEY=
+YOUTUBE_API_KEY=
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+CLERK_SECRET_KEY=
+```
+
+**Set up Firebase:**
+- Initialize firebase in your project:
+
+```bash
+firebase init
+```
+
+- configure your Firebase Firestore for data management
+
+- Create a new file called firebaseConfig.js
+
+```bash
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import {collection, getFirestore, addDoc, getDocs} from 'firebase/firestore';
+
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "",
+  authDomain: "",
+  projectId: "",
+  storageBucket: "",
+  messagingSenderId: "",
+  appId: "",
+  measurementId: ""
+};
+
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+export {db, collection, addDoc, getDocs}
+
+```
