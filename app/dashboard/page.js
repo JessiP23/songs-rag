@@ -1,49 +1,52 @@
 'use client'
 
 import React, { useState, useEffect } from "react";
-import { collection, deleteDoc, getDocs, doc, addDoc } from 'firebase/firestore';
+import { where, query, collection, deleteDoc, getDocs, doc, addDoc } from 'firebase/firestore';
 import Header from "@/components/Header";
 import { Card, CardHeader, CardBody, CardFooter, Divider, Link, Button } from "@nextui-org/react";
 import { db } from "@/firebaseConfig";
+import { useUser, useSignOut } from '@clerk/nextjs';
 
 const CardComponent = () => {
-  // songs state variable for dashboard songs coming from firebase
   const [songs, setSongs] = useState([]);
+  const { user } = useUser();
 
-  // fetch songs from firebase with songs collection
   const fetchSongs = async () => {
-    const querySnapshot = await getDocs(collection(db, "songs"));
+    if (!user) return;
+
+    const userDocRef = doc(db, 'users', user.id);
+    const userSongsRef = collection(userDocRef, 'songs');
+    const q = query(userSongsRef);
+    const querySnapshot = await getDocs(q);
     const songsList = querySnapshot.docs.map(doc => ({ firestoreId: doc.id, ...doc.data() }));
     setSongs(songsList);
   };
 
   const addSong = async (newSong) => {
     try {
-      await addDoc(collection(db, 'songs'), newSong);
-      fetchSongs(); // Refresh the list after adding a song
+      const userDocRef = doc(db, 'users', user.id);
+      const userSongsRef = collection(userDocRef, 'songs');
+      await addDoc(userSongsRef, newSong);
+      fetchSongs();
     } catch (error) {
       console.error("Error adding song:", error);
     }
   };
 
-  // delete Song with firestoreId
-  // switched to firestoreId such as id by itself was taken from the chatbot response/
-  // if using id, will retrieve an error of repeated id
   const deleteSong = async (firestoreId) => {
     try {
-      const songDocRef = doc(db, 'songs', firestoreId);
+      const userDocRef = doc(db, 'users', user.id);
+      const songDocRef = doc(userDocRef, 'songs', firestoreId);
       await deleteDoc(songDocRef);
-      fetchSongs(); // Refresh the list after deletion
+      fetchSongs();
     } catch (error) {
       console.error("Error deleting song:", error);
     }
   };
 
-  // logic to add songs from dashboard to global platform
   const addSongToGlobalPlatform = async (song) => {
     try {
-      // Add song to global platform collection
-      await addDoc(collection(db, 'globalSongs'), song);
+      await addDoc(collection(db, 'globalSongs'), { ...song, userId: user.id });
       console.log(`Song added to global platform: ${song.title}`);
     } catch (error) {
       console.error("Error adding song to global platform:", error);
@@ -51,15 +54,13 @@ const CardComponent = () => {
   };
 
   useEffect(() => {
-    fetchSongs(); // Fetch songs initially when the component loads
-  }, []); // Run once
+    fetchSongs();
+  }, [user]);
 
   return (
     <div>
-      {/* header */}
       <Header />
       <div>
-        {/* card config */}
         <div className="flex flex-row w-full">
           <div className="flex-1 overflow-x-auto">
             <h1 className="p-6 text-center mb-10 font-bold text-4xl">Song List</h1>
@@ -67,19 +68,18 @@ const CardComponent = () => {
               className="flex flex-row flex-wrap overflow-x-auto"
               style={{
                 width: '100%',
-                height: '50%', 
-                overflowX: 'auto', 
+                height: '50%',
+                overflowX: 'auto',
                 padding: '20px',
               }}
             >
-              {/* retrieve songs from firebase */}
               {songs.map((song) => (
                 <Card
                   key={song.firestoreId}
                   className="w-72 m-7 border border-gray-200 rounded-md shadow-md p-4"
                   style={{
                     flex: '0 0 25%',
-                    marginRight: '20px', 
+                    marginRight: '20px',
                   }}
                 >
                   <CardHeader className="flex gap-3">
@@ -102,9 +102,7 @@ const CardComponent = () => {
                     >
                       Listen Song
                     </Link>
-                    {/* calling the deletion function */}
                     <Button onClick={() => deleteSong(song.firestoreId)} className="cursor-pointer">Delete</Button>
-                    {/* new button to add song to global platform */}
                     <Button onClick={() => addSongToGlobalPlatform(song)} className="cursor-pointer">Add to Global Platform</Button>
                   </CardFooter>
                 </Card>
@@ -112,10 +110,9 @@ const CardComponent = () => {
             </div>
           </div>
           <div className="w-[30%] text-center font-bold">
-            {/* analytics */}
             <h1 className="p-6 text-xl mt-12">Number of songs:</h1>
             <div className="text-5xl">
-            {songs.length}
+              {songs.length}
             </div>
           </div>
         </div>
