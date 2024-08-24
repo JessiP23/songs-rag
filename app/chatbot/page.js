@@ -94,58 +94,119 @@ export default function Chatbot() {
 
   return (
     <div>
-      <Header />
-      <SignedIn>
-      <Box
-        width="100vw"
-        height="100vh"
-        display="flex"
-        flexDirection="column"
-        justifyContent="center"
-        alignItems="center"
-      >
-        <Stack direction="column" width="500px" height="700px" border="1px solid black" p={2} spacing={3}>
-          <Stack direction='row' alignItems='center' spacing={2}>
-            {/* Display user icon and email */}
-            {user && (
-              <>
-                <Avatar src={user.profileImageUrl} alt={user.fullName} />
-                <Typography>{user.emailAddresses[0].emailAddress}</Typography>
-              </>
-            )}
-          </Stack>
-          <Stack direction='column' spacing={2} flexGrow={1} overflow='auto' maxHeight="100%">
-            {messages.map((message, index) => (
-              <Box key={index} display="flex" justifyContent={message.role === 'assistant' ? 'flex-start' : 'flex-end'}>
-                <Box bgcolor={message.role === 'assistant' ? 'primary.main' : 'secondary.main'} color="white" borderRadius={16} p={3}>
-                  {message.content}
+            <Header />
+            <SignedIn>
+                <Box
+                    width="100vw"
+                    height="100vh"
+                    display="flex"
+                    flexDirection="column"
+                    justifyContent="center"
+                    alignItems="center"
+                    bgcolor="background.default"
+                    p={2}
+                >
+                    <Stack
+                        direction="column"
+                        width="100%"
+                        maxWidth="600px"
+                        height="80vh"
+                        border="1px solid #ddd"
+                        borderRadius={4}
+                        overflow="hidden"
+                        spacing={3}
+                        bgcolor="background.paper"
+                    >
+                        <Stack
+                            direction='row'
+                            alignItems='center'
+                            spacing={2}
+                            p={2}
+                            bgcolor="primary.main"
+                            color="white"
+                        >
+                            {/* Display user icon and email */}
+                            {user && (
+                                <>
+                                    <Avatar src={user.profileImageUrl} alt={user.fullName} />
+                                    <Typography variant="h6">{user.emailAddresses[0].emailAddress}</Typography>
+                                </>
+                            )}
+                        </Stack>
+                        <Stack
+                            direction='column'
+                            spacing={2}
+                            flexGrow={1}
+                            overflow='auto'
+                            p={2}
+                        >
+                            {messages.map((message, index) => (
+                                <Box
+                                    key={index}
+                                    display="flex"
+                                    justifyContent={message.role === 'assistant' ? 'flex-start' : 'flex-end'}
+                                >
+                                    <Box
+                                        bgcolor={message.role === 'assistant' ? 'primary.main' : 'secondary.main'}
+                                        color="white"
+                                        borderRadius={16}
+                                        p={2}
+                                        maxWidth="75%"
+                                    >
+                                        {message.content}
+                                    </Box>
+                                </Box>
+                            ))}
+                        </Stack>
+                        <Stack
+                            direction='row'
+                            spacing={2}
+                            p={2}
+                            bgcolor="background.paper"
+                        >
+                            <TextField
+                                label="Message"
+                                fullWidth
+                                variant="outlined"
+                                size="small"
+                                value={message}
+                                onChange={(e) => setMessage(e.target.value)}
+                            />
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                onClick={sendMessage}
+                                sx={{ height: '100%' }}
+                            >
+                                Send
+                            </Button>
+                        </Stack>
+                    </Stack>
                 </Box>
-              </Box>
-            ))}
-          </Stack>
-          <Stack direction='row' spacing={2}>
-            <TextField label="Message" fullWidth value={message} onChange={(e) => {
-              setMessage(e.target.value);
-            }} />
-            <Button variant="contained" onClick={sendMessage}>
-              Send
-            </Button>
-          </Stack>
-        </Stack>
-      </Box>
-      </SignedIn>
-      <SignedOut>
-      <div className="flex flex-col items-center justify-center h-screen p-4">
-          <div className="text-center mb-4">
-            <p className="text-lg text-gray-600">You are not authenticated. Click below to sign up or log in.</p>
-            <SignInButton mode="modal" forceRedirectUrl="/dashboard">
-              <Button className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-4 px-8 rounded shadow-md mt-4">
-                Sign up
-              </Button>
-            </SignInButton>
-          </div>
-        </div>
-      </SignedOut>
+            </SignedIn>
+            <SignedOut>
+                <Box
+                    display="flex"
+                    flexDirection="column"
+                    alignItems="center"
+                    justifyContent="center"
+                    height="100vh"
+                    p={4}
+                >
+                    <Typography variant="h6" color="textSecondary" align="center">
+                        You are not authenticated. Click below to sign up or log in.
+                    </Typography>
+                    <SignInButton mode="modal" forceRedirectUrl="/dashboard">
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            sx={{ mt: 2 }}
+                        >
+                            Sign up
+                        </Button>
+                    </SignInButton>
+                </Box>
+            </SignedOut>
     </div>
   );
 }
