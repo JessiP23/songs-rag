@@ -50,7 +50,7 @@ const CardComponent = () => {
 
   const addSongToGlobalPlatform = async (song) => {
     try {
-      await addDoc(collection(db, 'globalSongs'), { ...song, userId: user.id });
+      await addDoc(collection(db, 'globalSongs'), { ...song, userId: user.id, likes:0, dislikes:0, comments: [] });
       console.log(`Song added to global platform: ${song.title}`);
     } catch (error) {
       console.error("Error adding song to global platform:", error);
