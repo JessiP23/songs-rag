@@ -9,10 +9,6 @@ import {useUser, SignedIn, SignedOut, SignInButtonk, useClerk, SignInButton} fro
 import { useRouter } from "next/navigation";
 
 const PlatformPage = () => {
-
-    const {user} = useUser();
-    const router = useRouter();
-    const {signOut} = useClerk();
     // state variable for variable songs
     const [globalSongs, setGlobalSongs] = useState([]);
 
