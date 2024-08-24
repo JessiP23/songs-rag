@@ -3,16 +3,17 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import {collection, getFirestore, addDoc, getDocs} from 'firebase/firestore';
 
+
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyAMTMM8ezIffGkrzeNjxyVTGg74CUozZcI",
-  authDomain: "songs-ec929.firebaseapp.com",
-  projectId: "songs-ec929",
-  storageBucket: "songs-ec929.appspot.com",
-  messagingSenderId: "584316092718",
-  appId: "1:584316092718:web:0900d15bb57274832c7abf",
-  measurementId: "G-NTD4LHV825"
+  apiKey: "AIzaSyDHUYQ4z4CrpxUYkGsQ8dyMAo4gNaWNVcg",
+  authDomain: "song-c1ae1.firebaseapp.com",
+  projectId: "song-c1ae1",
+  storageBucket: "song-c1ae1.appspot.com",
+  messagingSenderId: "1282235676",
+  appId: "1:1282235676:web:af0bbbebdab39d84f96ed9",
+  measurementId: "G-K69TLJBYSH"
 };
 
 

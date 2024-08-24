@@ -26,8 +26,8 @@ export default function Home() {
         </div>
           {/* spacing for images in initial screen */}
           <div className="w-[60vw] relative">
-            <Image src={Image1} className="w-full h-screen object-cover rounded-lg shadow-md" />
-            <Image src={Image2} className="absolute bottom-4 left-4 w-1/2 h-96 object-cover rounded-lg shadow-md" />
+            <Image src={Image1} className="w-full h-screen object-cover rounded-lg shadow-md" alt="" />
+            <Image src={Image2} className="absolute bottom-4 left-4 w-1/2 h-96 object-cover rounded-lg shadow-md" alt="" />
           </div>
         </div>
       </div>
