@@ -46,16 +46,21 @@ const PlatformPage = () => {
                                 className="w-full sm:w-72 md:w-80 lg:w-96 m-4 border border-gray-200 rounded-md shadow-md"
                                 style={{
                                     maxWidth: '100%',
+                                    overflow: 'hidden',
                                 }}
                             >
                                 <CardHeader className="flex gap-3 p-4 bg-gray-100 border-b border-gray-300">
                                     <div className="flex flex-col">
-                                        <Typography variant="h6" className="text-2xl font-bold truncate">{song.title}</Typography>
-                                        <Typography variant="body2" className="text-sm text-gray-600 truncate">{song.channel}</Typography>
+                                        <Typography variant="h6" className="text-2xl font-bold truncate" style={{ overflowWrap: 'break-word' }}>
+                                            {song.title}
+                                        </Typography>
+                                        <Typography variant="body2" className="text-sm text-gray-600 truncate" style={{ overflowWrap: 'break-word' }}>
+                                            {song.channel}
+                                        </Typography>
                                     </div>
                                 </CardHeader>
                                 <Divider />
-                                <CardBody className="p-4">
+                                <CardBody className="p-4 flex flex-col overflow-auto">
                                     <div className="mb-4">
                                         <Link
                                             href={song.link}
@@ -66,7 +71,7 @@ const PlatformPage = () => {
                                             Listen Song
                                         </Link>
                                     </div>
-                                    <div className="bg-gray-50 border-t border-gray-200 p-2 rounded-md">
+                                    <div className="bg-gray-50 border-t border-gray-200 p-2 rounded-md flex-grow">
                                         <Typography variant="h6" className="font-bold text-lg mb-2">Comments</Typography>
                                         <CommentsSection songId={song.firestoreId} />
                                     </div>
