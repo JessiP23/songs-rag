@@ -7,6 +7,7 @@ import { Button, Card, CardBody, CardFooter, CardHeader, Divider, Link } from "@
 import Header from "@/components/Header";
 import { SignedIn, SignedOut, SignInButton } from '@clerk/nextjs';
 import CommentsSection from "@/components/comment";
+import { Typography } from "@mui/material";
 
 
 const PlatformPage = () => {
@@ -49,8 +50,8 @@ const PlatformPage = () => {
                             >
                                 <CardHeader className="flex gap-3 p-4 bg-gray-100 border-b border-gray-300">
                                     <div className="flex flex-col">
-                                        <p className="text-2xl font-bold">{song.title}</p>
-                                        <p className="text-sm text-gray-600">{song.channel}</p>
+                                        <Typography variant="h6" className="text-2xl font-bold truncate">{song.title}</Typography>
+                                        <Typography variant="body2" className="text-sm text-gray-600 truncate">{song.channel}</Typography>
                                     </div>
                                 </CardHeader>
                                 <Divider />
@@ -66,7 +67,7 @@ const PlatformPage = () => {
                                         </Link>
                                     </div>
                                     <div className="bg-gray-50 border-t border-gray-200 p-2 rounded-md">
-                                        <h2 className="font-bold text-lg mb-2">Comments</h2>
+                                        <Typography variant="h6" className="font-bold text-lg mb-2">Comments</Typography>
                                         <CommentsSection songId={song.firestoreId} />
                                     </div>
                                 </CardBody>
