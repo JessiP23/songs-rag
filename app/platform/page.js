@@ -66,17 +66,6 @@ const PlatformPage = () => {
                                 </Link>
                                 <CommentsSection songId={song.firestoreId} />
                             </CardBody>
-                            <Divider />
-                            <CardFooter>
-                                <Link
-                                    isExternal
-                                    showAnchorIcon
-                                    href={song.link}
-                                    className="text-red-500"
-                                >
-                                    Listen Song
-                                </Link>
-                            </CardFooter>
                         </Card>
                     ))}
                 </div>
