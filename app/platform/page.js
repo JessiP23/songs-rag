@@ -3,10 +3,16 @@
 import React, { useState, useEffect } from "react";
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from "@/firebaseConfig";
-import { Card, CardBody, CardFooter, CardHeader, Divider, Link } from "@nextui-org/react";
+import { Button, Card, CardBody, CardFooter, CardHeader, Divider, Link } from "@nextui-org/react";
 import Header from "@/components/Header";
+import {useUser, SignedIn, SignedOut, SignInButtonk, useClerk, SignInButton} from '@clerk/nextjs';
+import { useRouter } from "next/navigation";
 
 const PlatformPage = () => {
+
+    const {user} = useUser();
+    const router = useRouter();
+    const {signOut} = useClerk();
     // state variable for variable songs
     const [globalSongs, setGlobalSongs] = useState([]);
 
@@ -21,10 +27,12 @@ const PlatformPage = () => {
         fetchGlobalSongs(); // Fetch global songs initially when the component loads
     }, []); // Run once
 
+
     return (
         <div>
             <Header />
-        <h1 className="p-6 text-center mb-10 font-bold text-4xl">Global Song Platform</h1>
+            <SignedIn>
+            <h1 className="p-6 text-center mb-10 font-bold text-4xl">Global Song Platform</h1>
         <div
             className="flex flex-row flex-wrap overflow-x-auto"
             style={{
@@ -69,6 +77,19 @@ const PlatformPage = () => {
             </Card>
             ))}
         </div>
+            </SignedIn>
+            <SignedOut>
+        <div className="flex flex-col items-center justify-center h-screen p-4">
+          <div className="text-center mb-4">
+            <p className="text-lg text-gray-600">You are not authenticated. Click below to sign up or log in.</p>
+            <SignInButton mode="modal" forceRedirectUrl="/platform">
+              <Button className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-4 px-8 rounded shadow-md mt-4">
+                Sign up
+              </Button>
+            </SignInButton>
+          </div>
+        </div>
+      </SignedOut>
         </div>
     );
 };
