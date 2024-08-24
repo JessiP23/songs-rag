@@ -9,11 +9,12 @@ import StarHalfIcon from '@mui/icons-material/StarHalf'
 import SpatialAudioOffIcon from '@mui/icons-material/SpatialAudioOff';
 import StarRating from "@/components/StarRating";
 import Footer from "@/components/Footer";
-import { SignInButton, UserButton } from "@clerk/clerk-react";
-
+import { useUser, SignInButton, UserButton } from "@clerk/clerk-react";
+import Link from "next/link";
 
 // home page for allowing to authenticate before having access to the app itself. 
 export default function Home() {
+  const {isSignedIn, user} = useUser();
   return (
     <div>
       <div className="h-screen flex flex-col items-center p-4 w-full">
@@ -25,17 +26,31 @@ export default function Home() {
           <p className="text-lg text-gray-600 mb-6">Discover new music and rate your favorite songs!</p>
           <p className="text-lg text-gray-600 mb-6">Join our community of music lovers</p>
           <p className="text-lg text-gray-600 mb-6">Rate your songs</p>
-              <SignInButton mode="modal" forceRedirectUrl="/dashboard">
-                <button className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-4 px-8 rounded shadow-md">Sign up for free</button>
-              </SignInButton>
+          {isSignedIn ? (
+          <Link href="/dashboard">
+            <button
+              className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-4 px-8 rounded shadow-md"
+            >
+              Go to Dashboard
+            </button>
+          </Link>
+        ) : (
+          <SignInButton mode="modal" forceRedirectUrl="/dashboard">
+            <button
+              className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-4 px-8 rounded shadow-md"
+            >
+              Sign up for free
+            </button>
+          </SignInButton>
+        )}
         </div>
-          {/* spacing for images in initial screen */}
-          <div className="w-[60vw] relative">
-            <Image src={Image1} className="w-full h-screen object-cover rounded-lg shadow-md" alt="" />
-            <Image src={Image2} className="absolute bottom-4 left-4 w-1/2 h-96 object-cover rounded-lg shadow-md" alt="" />
-          </div>
+        {/* spacing for images in initial screen */}
+        <div className="w-[60vw] relative">
+          <Image src={Image1} className="w-full h-screen object-cover rounded-lg shadow-md" alt="" />
+          <Image src={Image2} className="absolute bottom-4 left-4 w-1/2 h-96 object-cover rounded-lg shadow-md" alt="" />
         </div>
       </div>
+    </div>
 
     {/* star rating animation for better ui design. */}
       <div className="text-center pt-[20%]">
