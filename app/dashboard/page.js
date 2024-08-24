@@ -11,6 +11,7 @@ import { useClerk } from "@clerk/nextjs";
 
 const CardComponent = () => {
   const [songs, setSongs] = useState([]);
+  const [commentCount, setCommentCount] = useState(0);
   const { user } = useUser();
   const router = useRouter();
   const { signOut } = useClerk();
@@ -18,12 +19,45 @@ const CardComponent = () => {
   const fetchSongs = async () => {
     if (!user) return;
 
-    const userDocRef = doc(db, 'users', user.id);
-    const userSongsRef = collection(userDocRef, 'songs');
-    const q = query(userSongsRef);
-    const querySnapshot = await getDocs(q);
-    const songsList = querySnapshot.docs.map(doc => ({ firestoreId: doc.id, ...doc.data() }));
-    setSongs(songsList);
+    try {
+      const userDocRef = doc(db, 'users', user.id);
+      const userSongsRef = collection(userDocRef, 'songs');
+      const q = query(userSongsRef);
+      const querySnapshot = await getDocs(q);
+      const songsList = querySnapshot.docs.map(doc => ({ firestoreId: doc.id, ...doc.data() }));
+      setSongs(songsList);
+      await fetchUserCommentsCount(); // Fetch comments count for the user
+    } catch (error) {
+      console.error("Error fetching songs:", error);
+    }
+  };
+
+  const fetchUserCommentsCount = async () => {
+    if (!user) return;
+
+    try {
+      const globalSongsRef = collection(db, 'globalSongs');
+      const querySnapshot = await getDocs(globalSongsRef);
+      const globalSongsList = querySnapshot.docs.map(doc => ({ firestoreId: doc.id, ...doc.data() }));
+
+      let count = 0;
+
+      for (const song of globalSongsList) {
+        const commentsRef = collection(doc(db, 'globalSongs', song.firestoreId), 'comments');
+        const commentsSnapshot = await getDocs(commentsRef);
+
+        commentsSnapshot.forEach(commentDoc => {
+          const commentData = commentDoc.data();
+          if (commentData.userId === user.id) {
+            count += 1;
+          }
+        });
+      }
+
+      setCommentCount(count);
+    } catch (error) {
+      console.error("Error fetching user comments count:", error);
+    }
   };
 
   const addSong = async (newSong) => {
@@ -50,7 +84,7 @@ const CardComponent = () => {
 
   const addSongToGlobalPlatform = async (song) => {
     try {
-      await addDoc(collection(db, 'globalSongs'), { ...song, userId: user.id, likes:0, dislikes:0, comments: [] });
+      await addDoc(collection(db, 'globalSongs'), { ...song, userId: user.id, likes: 0, dislikes: 0, comments: [] });
       console.log(`Song added to global platform: ${song.title}`);
     } catch (error) {
       console.error("Error adding song to global platform:", error);
@@ -123,6 +157,10 @@ const CardComponent = () => {
               <h1 className="p-6 text-xl mt-12">Number of songs:</h1>
               <div className="text-5xl">
                 {songs.length}
+              </div>
+              <h1 className="p-6 text-xl mt-12">Number of comments:</h1>
+              <div className="text-5xl">
+                {commentCount}
               </div>
             </div>
           </div>
