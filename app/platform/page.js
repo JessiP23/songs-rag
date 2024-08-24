@@ -49,7 +49,9 @@ const PlatformPage = () => {
                                     overflow: 'hidden',
                                 }}
                             >
+                                {/* distributing data */}
                                 <CardHeader className="flex gap-3 p-4 bg-gray-100 border-b border-gray-300">
+                                    {/* distribute data from firebase */}
                                     <div className="flex flex-col">
                                         <Typography variant="h6" className="text-2xl font-bold truncate" style={{ overflowWrap: 'break-word' }}>
                                             {song.title}
@@ -81,6 +83,7 @@ const PlatformPage = () => {
                     </div>
                 </div>
             </SignedIn>
+            {/* unauthorized users might show a page for logging into the app */}
             <SignedOut>
                 <div className="flex flex-col items-center justify-center h-screen p-4">
                     <div className="text-center mb-4">
