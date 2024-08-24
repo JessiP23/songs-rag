@@ -77,7 +77,7 @@ const CardComponent = () => {
               className="flex flex-row flex-wrap overflow-x-auto"
               style={{
                 width: '100%',
-                height: '50%',
+                height: '400px',
                 overflowX: 'auto',
                 padding: '20px',
               }}
