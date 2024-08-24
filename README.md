@@ -100,3 +100,49 @@ const db = getFirestore(app);
 export {db, collection, addDoc, getDocs}
 
 ```
+
+
+5. **Set up Clerk:**
+ 
+- Configure Clerk authentication in your app by following the [Clerk Documentation](https://docs.clerk.dev/)
+
+6. **Start the development server:**
+
+```bash
+npm run dev
+```
+
+Open your browser and navigate to `http://localhost:3000`
+
+### Deployment
+
+To deploy your application, you can use platforms like Vercel or Firebase Hosting.
+
+## Usage
+
+1. **User Authentication:**
+- Users must sign up or log in to access their dashboard
+
+2. **Dashboard:**
+- After logging in, users will see their personal dashboard, displaying their tracked songs and comments.
+
+3. **AI chatbot:**
+- Users can interact with the AI chatbot to create or discover new songs. The AI will suggest songs, which can then be added to the user's dashboard.
+
+4. **Global platform:**
+- Users can choose to upload their songs to a global paltform. Once uploaded, these songs are visible to all users, who can listen and leave comments.
+
+## Contributing
+Contributions are welcome! If you'd like to contribute, please fork the repository and use a feature branch. Pull requests are warmly welcome.
+
+## License
+This project is licensed under the MIT License.
+
+## Acknowledgements
+
+- [Next.js](https://nextjs.org/)
+- [Firebase](https://firebase.google.com/)
+- [Clerk](https://clerk.dev/)
+- [Pinecone](https://www.pinecone.io/)
+- [OpenAI](https://openai.com/)
+- [YouTube API](https://developers.google.com/youtube)
