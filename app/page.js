@@ -16,69 +16,64 @@ import Link from "next/link";
 export default function Home() {
   const {isSignedIn, user} = useUser();
   return (
-    <div>
-      <div className="h-screen flex flex-col items-center p-4 w-full">
-        {/* Title and description of app */}
-        <div className="flex flex-row mb-4 w-full">
-          {/* frontend landing page for Rate My song ai */}
-        <div className="w-[40vw] flex flex-col justify-center p-8">
-          <h1 className="text-4xl font-bold mb-8">Rate My Song</h1>
-          <p className="text-lg text-gray-600 mb-6">Discover new music and rate your favorite songs!</p>
-          <p className="text-lg text-gray-600 mb-6">Join our community of music lovers</p>
-          <p className="text-lg text-gray-600 mb-6">Rate your songs</p>
-          {isSignedIn ? (
-          <Link href="/dashboard">
-            <button
-              className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-4 px-8 rounded shadow-md"
-            >
-              Go to Dashboard
-            </button>
-          </Link>
-        ) : (
-          <SignInButton mode="modal" forceRedirectUrl="/dashboard">
-            <button
-              className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-4 px-8 rounded shadow-md"
-            >
-              Sign up for free
-            </button>
-          </SignInButton>
-        )}
-        </div>
-        {/* spacing for images in initial screen */}
-        <div className="w-[60vw] relative">
-          <Image src={Image1} className="w-full h-screen object-cover rounded-lg shadow-md" alt="" />
-          <Image src={Image2} className="absolute bottom-4 left-4 w-1/2 h-96 object-cover rounded-lg shadow-md" alt="" />
-        </div>
+    <div className="flex flex-col items-center p-4 w-full min-h-screen">
+  {/* Title and description of app */}
+  <div className="flex flex-col md:flex-row mb-8 w-full max-w-6xl">
+    {/* Frontend landing page for Rate My Song AI */}
+    <div className="md:w-1/2 flex flex-col justify-center p-8">
+      <h1 className="text-4xl font-bold mb-6">Rate My Song</h1>
+      <p className="text-lg text-gray-600 mb-4">Discover new music and rate your favorite songs!</p>
+      <p className="text-lg text-gray-600 mb-4">Join our community of music lovers</p>
+      <p className="text-lg text-gray-600 mb-4">Rate your songs</p>
+      {isSignedIn ? (
+        <Link href="/dashboard">
+          <button className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-3 px-6 rounded shadow-md">
+            Go to Dashboard
+          </button>
+        </Link>
+      ) : (
+        <SignInButton mode="modal" forceRedirectUrl="/dashboard">
+          <button className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-3 px-6 rounded shadow-md">
+            Sign up for free
+          </button>
+        </SignInButton>
+      )}
+    </div>
+    {/* Spacing for images in the initial screen */}
+    <div className="md:w-1/2 relative mt-8 md:mt-0">
+      <Image src={Image1} className="w-full h-64 md:h-screen object-cover rounded-lg shadow-md" alt="" />
+      <Image src={Image2} className="absolute bottom-4 left-4 w-full md:w-1/2 h-64 md:h-96 object-cover rounded-lg shadow-md" alt="" />
+    </div>
+  </div>
+
+  {/* Star rating animation for better UI design */}
+  <div className="text-center pt-12">
+    <StarRating />
+  </div>
+
+  {/* Feature section */}
+  <div className="mt-12">
+    <h1 className="text-2xl text-center pb-8">Features</h1>
+    {/* Feature list */}
+    <div className="flex flex-wrap justify-center">
+      <div className="flex flex-col items-center p-6 bg-white rounded-lg shadow-md w-full md:w-72 m-4">
+        <MusicVideoIcon sx={{ fontSize: '30px', marginBottom: '12px' }} />
+        <p className="text-lg text-gray-600 text-center">Discover new music</p>
+      </div>
+      <div className="flex flex-col items-center p-6 bg-white rounded-lg shadow-md w-full md:w-72 m-4">
+        <StarHalfIcon sx={{ fontSize: '30px', marginBottom: '12px' }} />
+        <p className="text-lg text-gray-600 text-center">Rate your favorite songs</p>
+      </div>
+      <div className="flex flex-col items-center p-6 bg-white rounded-lg shadow-md w-full md:w-72 m-4">
+        <SpatialAudioOffIcon sx={{ fontSize: '30px', marginBottom: '12px' }} />
+        <p className="text-lg text-gray-600 text-center">Interact with music lovers</p>
       </div>
     </div>
+  </div>
 
-    {/* star rating animation for better ui design. */}
-      <div className="text-center pt-[20%]">
-        <StarRating />
-      </div>
-
-      {/* feature section */}
-      <div className="mt-[20%]">
-        <h1 className="text-2xl text-center pb-12">Features</h1>  
-        {/* feature list */}
-        <div className="flex flex-wrap justify-center">
-          <div className="flex flex-row items-center p-4 bg-white rounded-lg shadow-md w-72 m-4">
-            <MusicVideoIcon sx={{ fontSize: '30px', marginRight: '16px' }} />
-            <p className="text-lg text-gray-600">Discover new music</p>
-          </div>
-          <div className="flex flex-row items-center p-4 bg-white rounded-lg shadow-md w-72 m-4">
-            <StarHalfIcon sx={{ fontSize: '30px', marginRight: '16px' }} />
-            <p className="text-lg text-gray-600">Rate your favorite songs</p>
-          </div>
-          <div className="flex flex-row items-center p-4 bg-white rounded-lg shadow-md w-72 m-4">
-            <SpatialAudioOffIcon sx={{ fontSize: '30px', marginRight: '16px' }} />
-            <p className="text-lg text-gray-600">Interact with music lovers</p>
-          </div>
-        </div>
-      </div>
-      <div className="mt-[10%]">
-      <Footer />
-      </div>
-    </div>
+  <div className="mt-12">
+    <Footer />
+  </div>
+</div>
   )
 }
